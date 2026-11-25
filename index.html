@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DevizPro România 4.0</title>
+<style>
+:root{--navy:#14213d;--blue:#2457d6;--bg:#f3f5fa;--line:#e3e7ef;--muted:#667085;--green:#16804a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#172033;font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:18px max(16px,calc((100% - 1050px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-weight:850;font-size:21px}.brand small{display:block;font-size:11px;color:#cbd5e1;font-weight:500;letter-spacing:1.2px}
+.ver{font-size:11px;background:#263c63;border-radius:20px;padding:6px 10px}.brandmark{display:inline-grid;place-items:center;width:34px;height:34px;margin-right:9px;border-radius:10px;background:#fff;color:var(--navy);font-weight:900}.brandline{display:flex;align-items:center}.feature-note{background:#eef4ff;border:1px solid #d8e4ff;border-radius:10px;padding:12px;color:#263d85;font-size:13px;line-height:1.5}.search{max-width:320px}.subgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pricecard{border:1px solid var(--line);border-radius:12px;padding:14px}.pricecard strong{font-size:22px}.pricecard ul{padding-left:18px;color:#475467;font-size:13px;line-height:1.8}
+main{max-width:1050px;margin:20px auto;padding:0 14px 40px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+nav button,.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}
+nav button{background:#e8ecf5;color:#344054}nav button.active{background:var(--blue);color:#fff}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;margin-bottom:14px;box-shadow:0 3px 14px #17203308}
+h2{font-size:17px;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;color:#475467;font-size:12px;font-weight:700;margin:0 0 5px}
+input,textarea,select{width:100%;border:1px solid #cfd5df;border-radius:8px;padding:10px;font:inherit;color:#172033;background:#fff}
+textarea{min-height:65px;resize:vertical}
+.btn.primary{background:var(--blue);color:#fff}.btn.soft{background:#edf1ff;color:#263d85}.btn.danger{background:#fff0f0;color:#b42318}.btn.green{background:#e7f6ed;color:#176b40}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+table{width:100%;border-collapse:collapse}th{text-align:left;color:#667085;font-size:12px;padding:8px 5px;border-bottom:1px solid var(--line)}td{padding:7px 4px;border-bottom:1px solid #eef0f3}td input{padding:8px 6px;min-width:0}
+.qty{width:75px}.unit{width:105px}.sum{text-align:right;white-space:nowrap;font-weight:700}.x{border:0;background:#fff0f0;color:#b42318;border-radius:7px;padding:7px;cursor:pointer}
+.totalbox{max-width:310px;margin:12px 0 0 auto}.line{display:flex;justify-content:space-between;padding:6px 0;color:#475467}.grand{font-size:20px;font-weight:850;color:#172033;border-top:1px solid var(--line);padding-top:10px;margin-top:5px}
+.muted{color:var(--muted);font-size:12px;line-height:1.5}.hidden{display:none!important}
+.listitem{border:1px solid var(--line);border-radius:10px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.listitem strong{display:block}.listitem small{color:var(--muted)}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed #cfd5df;border-radius:10px}
+.badge{font-size:11px;border-radius:20px;background:#e7f6ed;color:#176b40;padding:4px 8px;font-weight:750}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.panel{padding:13px}table,thead,tbody,tr,td{display:block}thead{display:none}tbody tr{display:grid;grid-template-columns:1fr 70px 95px 28px;gap:5px;padding:8px 0;border-bottom:1px solid var(--line)}tbody td{border:0;padding:2px}tbody td:first-child{grid-column:1/-1}tbody td:last-child{text-align:center}.sum{font-size:12px}.listitem{align-items:flex-start}}
+@media print{body{background:#fff}header{background:#fff;color:#111;padding:0 0 15px}.brand small{color:#555}main{margin:0;padding:0}nav,.no-print,.x{display:none!important}.panel{box-shadow:none;border:0;padding:8px 0;margin:0 0 8px}input,textarea{border:0;padding:2px 0}th{color:#333}td{border-bottom:1px solid #ddd}.hidden{display:none!important}}
+</style></head>
+<body>
+<header><div class="brandline"><span class="brandmark">DP</span><div class="brand">DevizPro România<small>DEVIZE • OFERTE • LUCRĂRI</small></div></div><span class="ver">VERSIUNEA 4.0 BETA</span></header>
+<main>
+<nav class="no-print">
+<button class="active" data-tab="editor">＋ Deviz nou</button><button data-tab="account">♙ Cont online</button><button data-tab="history">◷ Istoric devize</button><button data-tab="clients">♙ Clienți</button><button data-tab="settings">⚙ Date prestator</button><button data-tab="plans">★ Abonament</button>
+</nav>
+<section id="editor">
+ <div class="panel">
+  <div class="toolbar"><h2>Detalii deviz / ofertă</h2><span class="badge" id="docno">Nou</span></div>
+  <div class="grid">
+   <div><label>Client existent</label><select id="clientPick"><option value="">— Client nou / nesalvat —</option></select></div>
+   <div><label>Data</label><input id="date" type="date"></div>
+   <div><label>Nume client</label><input id="client" placeholder="Numele clientului"></div>
+   <div><label>Telefon client</label><input id="clientPhone" placeholder="07xx xxx xxx"></div>
+   <div><label>Adresă client / lucrare</label><input id="clientAddress" placeholder="Localitate, stradă"></div>
+   <div><label>Descriere lucrare</label><input id="job" placeholder="Ex.: Renovare baie"></div>
+  </div>
+ </div>
+ <div class="panel">
+  <h2>Materiale și manoperă</h2>
+  <table><thead><tr><th>Descriere</th><th>Cant.</th><th>Preț unitar (lei)</th><th style="text-align:right">Total</th><th></th></tr></thead><tbody id="items"></tbody></table>
+  <div class="actions no-print"><button class="btn soft" id="add">＋ Adaugă poziție</button></div>
+  <div class="totalbox">
+   <div class="line"><span>Subtotal</span><strong id="subtotal">0,00 lei</strong></div>
+   <div class="line"><span>TVA (%)</span><input id="vat" type="number" min="0" max="100" value="0" style="width:70px;padding:5px"></div>
+   <div class="line"><span>Valoare TVA</span><strong id="tax">0,00 lei</strong></div>
+   <div class="line grand"><span>TOTAL</span><strong id="grand">0,00 lei</strong></div>
+  </div>
+ </div>
+ <div class="panel">
+  <h2>Observații și condiții</h2><textarea id="terms" placeholder="Ex.: Oferta este valabilă 15 zile. Termenul de execuție se stabilește de comun acord."></textarea>
+  <div class="actions no-print">
+   <button class="btn primary" id="saveQuote">Salvează devizul</button><button class="btn soft" id="print">Printează / Salvează PDF</button><button class="btn soft" id="newQuote">Deviz nou</button>
+  </div>
+  <p class="muted">Devizele și clienții se păstrează local în browserul acestui dispozitiv. Exportul PDF este o ofertă/deviz, nu o factură fiscală.</p>
+ </div>
+</section>
+<section id="history" class="hidden"><div class="panel"><div class="toolbar"><h2>Istoric devize</h2><span class="muted" id="quoteCount">0 devize</span></div><input class="search" id="quoteSearch" placeholder="Caută după client, lucrare sau număr..." oninput="renderQuotes()"><div class="actions no-print"><button class="btn soft" id="exportData">Descarcă backup</button><label class="btn soft" for="importData" style="display:inline-block;margin:0;cursor:pointer">Restaurare backup</label><input id="importData" type="file" accept="application/json" class="hidden"></div><div id="quoteList"></div></div></section>
+<section id="clients" class="hidden"><div class="panel"><h2>Registru clienți</h2><div class="grid"><div><label>Nume client</label><input id="newClientName" placeholder="Nume / firmă"></div><div><label>Telefon</label><input id="newClientPhone" placeholder="Telefon"></div><div style="grid-column:1/-1"><label>Adresă</label><input id="newClientAddress" placeholder="Adresă client"></div></div><div class="actions"><button class="btn primary" id="addClient">Adaugă client</button></div><div id="clientList" style="margin-top:12px"></div></div></section>
+<section id="settings" class="hidden"><div class="panel"><h2>Datele prestatorului</h2><div class="grid">
+<div><label>Nume / Firmă</label><input id="bizName" placeholder="Numele tău sau firma"></div>
+<div><label>Telefon</label><input id="bizPhone" placeholder="07xx xxx xxx"></div>
+<div><label>E-mail</label><input id="bizEmail" placeholder="email@exemplu.ro"></div>
+<div><label>CUI (dacă există)</label><input id="bizCui" placeholder="RO..."></div>
+<div style="grid-column:1/-1"><label>Adresă prestator</label><input id="bizAddress" placeholder="Localitate, adresă"></div>
+</div><div class="actions"><button class="btn primary" id="saveSettings">Salvează datele</button></div><p class="muted">Datele prestatorului vor apărea pe documentele PDF generate pe acest dispozitiv.</p></div></section>
+<section id="account" class="hidden">
+ <div class="panel">
+  <div class="toolbar"><h2>Cont DevizPro</h2><span class="badge" id="authStatus">Neconectat</span></div>
+  <p class="muted">Înregistrează-te cu e-mail și parolă. Autentificarea și sincronizarea online se activează după configurarea Firebase și publicarea aplicației pe un domeniu HTTPS autorizat.</p>
+  <div id="authForms" class="grid">
+   <div><label>Adresă e-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="nume@exemplu.ro"></div>
+   <div><label>Parolă (minimum 6 caractere)</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Parola ta"></div>
+  </div>
+  <div class="actions" id="authActions"><button class="btn primary" id="registerBtn">Creează cont</button><button class="btn soft" id="loginBtn">Intră în cont</button><button class="btn soft" id="resetBtn">Am uitat parola</button></div>
+  <div class="actions hidden" id="signedActions"><button class="btn danger" id="logoutBtn">Deconectare</button><button class="btn soft" id="syncBtn">Sincronizează acum</button></div>
+  <p id="authMessage" class="feature-note" role="status">Conturile online nu sunt încă active. Completează configurația Firebase, activează Email/Password, configurează Firestore și deschide aplicația de pe HTTPS.</p>
+ </div>
+ <div class="panel">
+  <h2>Configurare Firebase</h2>
+  <p class="muted">Configurația se obține din Firebase Console → Project settings → Your apps → Web app. Cheile web Firebase sunt identificatori publici; securitatea datelor trebuie impusă prin regulile Firestore.</p>
+  <div class="grid">
+   <div><label>API Key</label><input id="fbApiKey" autocomplete="off" placeholder="AIza..."></div>
+   <div><label>Auth Domain</label><input id="fbAuthDomain" placeholder="proiect.firebaseapp.com"></div>
+   <div><label>Project ID</label><input id="fbProjectId" placeholder="numele-proiectului"></div>
+   <div><label>App ID</label><input id="fbAppId" placeholder="1:...:web:..."></div>
+   <div><label>Messaging Sender ID (opțional)</label><input id="fbSenderId" placeholder="Număr proiect"></div>
+   <div><label>Storage Bucket (opțional)</label><input id="fbBucket" placeholder="proiect.firebasestorage.app"></div>
+  </div>
+  <div class="actions"><button class="btn primary" id="saveFirebase">Salvează configurarea</button><button class="btn soft" id="testFirebase">Conectează Firebase</button></div>
+  <p class="muted">Configurarea rămâne în acest browser. Nu introduce parole Firebase sau chei private aici. Activează Email/Password în Authentication și creează Firestore Database în Firebase Console.</p>
+ </div>
+ <div class="panel">
+  <h2>Pașii pentru activare</h2>
+  <ol class="muted"><li>Creează un proiect la <b>console.firebase.google.com</b>.</li><li>Adaugă o aplicație Web și copiază valorile de configurare de mai sus.</li><li>În Authentication → Sign-in method activează Email/Password.</li><li>Creează Firestore Database și aplică reguli care permit fiecărui utilizator să citească/scrie numai documentul cu propriul UID.</li><li>Salvează configurația și apasă „Conectează Firebase”.</li></ol>
+ </div>
+</section>
+<section id="plans" class="hidden"><div class="panel"><h2>DevizPro – planuri</h2><p class="muted">Alege varianta potrivită. Prezentarea abonamentului este informativă; plata și conturile online nu sunt activate în această versiune.</p><div class="subgrid"><div class="pricecard"><h3>Gratuit</h3><strong>0 lei</strong><ul><li>Creare și salvare devize</li><li>Istoric și registru clienți</li><li>Export PDF prin imprimare</li><li>Trimitere ofertă prin WhatsApp</li></ul></div><div class="pricecard"><h3>Premium</h3><strong>19 lei/lună</strong><ul><li>Toate funcțiile gratuite</li><li>Pregătit pentru funcții avansate</li><li>Suport prioritar – planificat</li><li>Sincronizare online – planificată</li></ul><p class="muted">Abonamentul nu poate fi cumpărat încă. Nu se efectuează nicio plată.</p></div></div></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id), KEY='devizpro-v2-data';
+const money=n=>(Number(n)||0).toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2})+' lei';
+let db={quotes:[],clients:[],settings:{},currentId:null};
+function exportBackup(){let blob=new Blob([JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='devizpro-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
+$('exportData')?.addEventListener('click',exportBackup);
+$('importData')?.addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let d=JSON.parse(await f.text());if(!Array.isArray(d.quotes)||!Array.isArray(d.clients)||typeof d.settings!=='object')throw new Error('format');if(!confirm('Restaurarea va înlocui datele DevizPro salvate pe acest dispozitiv. Continui?'))return;db.quotes=d.quotes;db.clients=d.clients;db.settings=d.settings||{};db.currentId=null;persist();fillSettings();renderQuotes();renderClients();refreshClientPick();alert('Backup restaurat cu succes.')}catch(err){alert('Fișierul nu pare a fi un backup DevizPro valid.')}e.target.value=''});
+function loadDB(){try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');db={quotes:d.quotes||[],clients:d.clients||[],settings:d.settings||{},currentId:null}}catch(e){}}
+function persist(){localStorage.setItem(KEY,JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings}));if(window.devizCloudSave)window.devizCloudSave({quotes:db.quotes,clients:db.clients,settings:db.settings})}
+function switchTab(tab){document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('hidden',s.id!==tab));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));if(tab==='history')renderQuotes();if(tab==='clients')renderClients();if(tab==='editor')refreshClientPick()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+function addRow(desc='',qty=1,price=0){const tr=document.createElement('tr');tr.innerHTML='<td><input class="desc" placeholder="Ex.: Montaj priză"></td><td><input class="qty" type="number" min="0" step="0.01"></td><td><input class="unit" type="number" min="0" step="0.01"></td><td class="sum">0,00 lei</td><td><button class="x no-print">×</button></td>';tr.querySelector('.desc').value=desc;tr.querySelector('.qty').value=qty;tr.querySelector('.unit').value=price;tr.querySelectorAll('input').forEach(i=>i.oninput=calc);tr.querySelector('.x').onclick=()=>{tr.remove();calc()};$('items').appendChild(tr);calc()}
+function rows(){return [...document.querySelectorAll('#items tr')].map(t=>({desc:t.querySelector('.desc').value,qty:Number(t.querySelector('.qty').value)||0,price:Number(t.querySelector('.unit').value)||0}))}
+function calc(){let sub=0;document.querySelectorAll('#items tr').forEach(t=>{let s=(Number(t.querySelector('.qty').value)||0)*(Number(t.querySelector('.unit').value)||0);sub+=s;t.querySelector('.sum').textContent=money(s)});let tax=sub*(Math.max(0,Number($('vat').value)||0))/100;$('subtotal').textContent=money(sub);$('tax').textContent=money(tax);$('grand').textContent=money(sub+tax)}
+$('add').onclick=()=>addRow();$('vat').oninput=calc;
+function formData(){return {id:db.currentId||('DP-'+Date.now()),date:$('date').value,client:$('client').value.trim(),phone:$('clientPhone').value.trim(),address:$('clientAddress').value.trim(),job:$('job').value.trim(),terms:$('terms').value,vat:Number($('vat').value)||0,items:rows(),updated:new Date().toISOString()}}
+function clearEditor(){db.currentId=null;$('docno').textContent='Deviz nou';['client','clientPhone','clientAddress','job','terms'].forEach(k=>$(k).value='');$('date').value=new Date().toISOString().slice(0,10);$('vat').value=0;$('items').innerHTML='';addRow('Manoperă',1,0);refreshClientPick()}
+$('newQuote').onclick=clearEditor;
+$('saveQuote').onclick=()=>{let q=formData();if(!q.client){alert('Completează numele clientului înainte de salvare.');return}let i=db.quotes.findIndex(x=>x.id===q.id);if(i>=0)db.quotes[i]=q;else db.quotes.unshift(q);db.currentId=q.id;persist();$('docno').textContent=q.id;alert('Deviz salvat în istoric!');};
+$('print').onclick=()=>{if(!db.settings.name&&!db.settings.phone){/* date prestator optional */}window.print()};
+function refreshClientPick(){let s=$('clientPick');s.innerHTML='<option value="">— Client nou / nesalvat —</option>';db.clients.forEach((c,i)=>{let o=document.createElement('option');o.value=i;o.textContent=c.name;s.appendChild(o)})}
+$('clientPick').onchange=()=>{let c=db.clients[Number($('clientPick').value)];if(c){$('client').value=c.name;$('clientPhone').value=c.phone||'';$('clientAddress').value=c.address||''}};
+function quoteTotal(q){let n=(q.items||[]).reduce((s,x)=>s+(Number(x.qty)||0)*(Number(x.price)||0),0);return n+n*(Number(q.vat)||0)/100}
+function shareQuote(q){let total=money(quoteTotal(q));let msg=`Bună ziua! Vă trimit oferta DevizPro România\nClient: ${q.client}\nLucrare: ${q.job||'—'}\nTotal: ${total}\nNumăr deviz: ${q.id}\nOferta detaliată o pot trimite în format PDF.`;let phone=(q.phone||'').replace(/\D/g,'');let url='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);window.open(url,'_blank')}
+function duplicateQuote(id){let q=db.quotes.find(x=>x.id===id);if(!q)return;let copy=JSON.parse(JSON.stringify(q));copy.id='DP-'+Date.now();copy.date=new Date().toISOString().slice(0,10);copy.updated=new Date().toISOString();db.currentId=null;editQuoteData(copy);switchTab('editor');$('docno').textContent='Copie nouă';}
+function editQuoteData(q){db.currentId=q.id;$('docno').textContent=q.id;$('date').value=q.date||'';$('client').value=q.client||'';$('clientPhone').value=q.phone||'';$('clientAddress').value=q.address||'';$('job').value=q.job||'';$('terms').value=q.terms||'';$('vat').value=q.vat||0;$('items').innerHTML='';(q.items||[]).forEach(x=>addRow(x.desc,x.qty,x.price));calc()}
+function renderQuotes(){let box=$('quoteList');$('quoteCount').textContent=db.quotes.length+' devize';let term=($('quoteSearch')?.value||'').toLowerCase();let list=db.quotes.filter(q=>[q.client,q.job,q.id].join(' ').toLowerCase().includes(term));if(!list.length){box.innerHTML='<div class="empty">'+(db.quotes.length?'Nu există rezultate pentru căutarea ta.':'Nu ai devize salvate încă.')+'</div>';return}box.innerHTML='';list.forEach(q=>{let el=document.createElement('div');el.className='listitem';let info=document.createElement('div');info.innerHTML='<strong></strong><small></small>';info.querySelector('strong').textContent=q.client+' · '+money(quoteTotal(q));info.querySelector('small').textContent=(q.date||'')+' · '+(q.job||'Fără descriere')+' · '+q.id;let acts=document.createElement('div');acts.className='actions no-print';let open=document.createElement('button');open.className='btn soft';open.textContent='Deschide';open.onclick=()=>{editQuote(q.id);switchTab('editor')};let dup=document.createElement('button');dup.className='btn soft';dup.textContent='Duplică';dup.onclick=()=>duplicateQuote(q.id);let wa=document.createElement('button');wa.className='btn green';wa.textContent='WhatsApp';wa.onclick=()=>shareQuote(q);let del=document.createElement('button');del.className='btn danger';del.textContent='Șterge';del.onclick=()=>{if(confirm('Ștergi acest deviz?')){db.quotes=db.quotes.filter(x=>x.id!==q.id);persist();renderQuotes()}};acts.append(open,dup,wa,del);el.append(info,acts);box.append(el)})}
+function editQuote(id){let q=db.quotes.find(x=>x.id===id);if(q)editQuoteData(q)}
+$('addClient').onclick=()=>{let c={name:$('newClientName').value.trim(),phone:$('newClientPhone').value.trim(),address:$('newClientAddress').value.trim()};if(!c.name){alert('Scrie numele clientului.');return}db.clients.push(c);persist();['newClientName','newClientPhone','newClientAddress'].forEach(k=>$(k).value='');renderClients();refreshClientPick()};
+function renderClients(){let box=$('clientList');if(!db.clients.length){box.innerHTML='<div class="empty">Nu ai clienți salvați încă.</div>';return}box.innerHTML='';db.clients.forEach((c,i)=>{let el=document.createElement('div');el.className='listitem';let d=document.createElement('div');let st=document.createElement('strong');st.textContent=c.name;let sm=document.createElement('small');sm.textContent=[c.phone,c.address].filter(Boolean).join(' · ');d.append(st,sm);let b=document.createElement('button');b.className='btn danger';b.textContent='Șterge';b.onclick=()=>{if(confirm('Ștergi clientul?')){db.clients.splice(i,1);persist();renderClients();refreshClientPick()}};el.append(d,b);box.append(el)})}
+function fillSettings(){let s=db.settings;[['bizName','name'],['bizPhone','phone'],['bizEmail','email'],['bizCui','cui'],['bizAddress','address']].forEach(([a,b])=>$(a).value=s[b]||'')}
+$('saveSettings').onclick=()=>{db.settings={name:$('bizName').value,phone:$('bizPhone').value,email:$('bizEmail').value,cui:$('bizCui').value,address:$('bizAddress').value};persist();alert('Datele prestatorului au fost salvate!')};
+const oldPrint=window.print;window.addEventListener('beforeprint',()=>{let s=db.settings;let old=document.getElementById('printSeller');if(old)old.remove();let p=document.createElement('div');p.id='printSeller';p.className='panel';p.innerHTML='<h2>Prestator</h2>';let d=document.createElement('div');d.textContent=[s.name,s.address,s.phone,s.email,s.cui?'CUI: '+s.cui:''].filter(Boolean).join(' · ');p.append(d);$('editor').insertBefore(p,$('editor').firstChild)});
+window.addEventListener('afterprint',()=>{let p=document.getElementById('printSeller');if(p)p.remove()});
+loadDB();fillSettings();clearEditor();refreshClientPick();window.devizApplyCloudData=(d)=>{if(!d||typeof d!=='object')return;db.quotes=Array.isArray(d.quotes)?d.quotes:db.quotes;db.clients=Array.isArray(d.clients)?d.clients:db.clients;db.settings=d.settings&&typeof d.settings==='object'?d.settings:db.settings;localStorage.setItem(KEY,JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings}));fillSettings();renderQuotes();renderClients();refreshClientPick()};
+</script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+const $=id=>document.getElementById(id); let app=null,auth=null,store=null,user=null,ready=false;
+const ids=['fbApiKey','fbAuthDomain','fbProjectId','fbAppId','fbSenderId','fbBucket'];
+function message(t){$('authMessage').textContent=t}
+function config(){return {apiKey:$('fbApiKey').value.trim(),authDomain:$('fbAuthDomain').value.trim(),projectId:$('fbProjectId').value.trim(),appId:$('fbAppId').value.trim(),messagingSenderId:$('fbSenderId').value.trim(),storageBucket:$('fbBucket').value.trim()}}
+function loadConfig(){try{const c=JSON.parse(localStorage.getItem('devizpro-firebase-config')||'{}');ids.forEach((id,i)=>$(id).value=c[['apiKey','authDomain','projectId','appId','messagingSenderId','storageBucket'][i]]||'')}catch(e){}}
+function setUI(){ $('authStatus').textContent=user?'Conectat: '+user.email:'Neconectat';$('authForms').classList.toggle('hidden',!!user);$('authActions').classList.toggle('hidden',!!user);$('signedActions').classList.toggle('hidden',!user)}
+async function init(){const c=config();if(!c.apiKey||!c.authDomain||!c.projectId||!c.appId){message('Completează configurația Firebase și salveaz-o.');return}try{app=initializeApp(c,'devizpro-'+Date.now());auth=getAuth(app);store=getFirestore(app);onAuthStateChanged(auth,async u=>{user=u;setUI();if(u){await pull();message('Conectat. Datele contului sunt sincronizate în cloud.')}else message('Nu ești conectat. Datele existente rămân salvate local.');});ready=true;message('Firebase conectat. Te poți înregistra sau autentifica.')}catch(e){message('Eroare Firebase: '+e.message)}}
+async function pull(){if(!user||!store)return;try{const ref=doc(store,'users',user.uid,'private','workspace');const snap=await getDoc(ref);if(snap.exists())window.devizApplyCloudData(snap.data());else await push();}catch(e){message('Nu am putut încărca datele: '+e.message)}}
+async function push(){if(!user||!store)return;try{const raw=JSON.parse(localStorage.getItem('devizpro-v2-data')||'{}');await setDoc(doc(store,'users',user.uid,'private','workspace'),{quotes:raw.quotes||[],clients:raw.clients||[],settings:raw.settings||{},updatedAt:new Date().toISOString()});message('Sincronizare finalizată.')}catch(e){message('Eroare la sincronizare: '+e.message)}}
+window.devizCloudSave=(data)=>{if(user&&store){setDoc(doc(store,'users',user.uid,'private','workspace'),{...data,updatedAt:new Date().toISOString()}).catch(e=>message('Eroare sincronizare: '+e.message))}};
+$('saveFirebase').onclick=()=>{const c=config();if(!c.apiKey||!c.authDomain||!c.projectId||!c.appId){message('Completează cel puțin API Key, Auth Domain, Project ID și App ID.');return}localStorage.setItem('devizpro-firebase-config',JSON.stringify(c));message('Configurație salvată. Apasă „Conectează Firebase”.')};
+$('testFirebase').onclick=init;
+$('registerBtn').onclick=async()=>{if(!auth){message('Configurează și conectează Firebase mai întâi.');return}try{const x=await createUserWithEmailAndPassword(auth,$('authEmail').value.trim(),$('authPassword').value);user=x.user;await push()}catch(e){message('Nu am putut crea contul: '+e.message)}};
+$('loginBtn').onclick=async()=>{if(!auth){message('Configurează și conectează Firebase mai întâi.');return}try{await signInWithEmailAndPassword(auth,$('authEmail').value.trim(),$('authPassword').value)}catch(e){message('Autentificare eșuată: '+e.message)}};
+$('resetBtn').onclick=async()=>{if(!auth){message('Configurează și conectează Firebase mai întâi.');return}try{await sendPasswordResetEmail(auth,$('authEmail').value.trim());message('Am trimis linkul de resetare. Verifică și folderul Spam.')}catch(e){message('Nu am putut trimite resetarea: '+e.message)}};
+$('logoutBtn').onclick=()=>signOut(auth);$('syncBtn').onclick=push;
+loadConfig();setUI();
+</script>
+</body></html>
