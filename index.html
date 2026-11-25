@@ -146,26 +146,209 @@ const oldPrint=window.print;window.addEventListener('beforeprint',()=>{let s=db.
 window.addEventListener('afterprint',()=>{let p=document.getElementById('printSeller');if(p)p.remove()});
 loadDB();fillSettings();clearEditor();refreshClientPick();window.devizApplyCloudData=(d)=>{if(!d||typeof d!=='object')return;db.quotes=Array.isArray(d.quotes)?d.quotes:db.quotes;db.clients=Array.isArray(d.clients)?d.clients:db.clients;db.settings=d.settings&&typeof d.settings==='object'?d.settings:db.settings;localStorage.setItem(KEY,JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings}));fillSettings();renderQuotes();renderClients();refreshClientPick()};
 </script>
+
 <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
-const $=id=>document.getElementById(id); let app=null,auth=null,store=null,user=null,ready=false;
-const ids=['fbApiKey','fbAuthDomain','fbProjectId','fbAppId','fbSenderId','fbBucket'];
-function message(t){$('authMessage').textContent=t}
-function config(){return {apiKey:$('fbApiKey').value.trim(),authDomain:$('fbAuthDomain').value.trim(),projectId:$('fbProjectId').value.trim(),appId:$('fbAppId').value.trim(),messagingSenderId:$('fbSenderId').value.trim(),storageBucket:$('fbBucket').value.trim()}}
-function loadConfig(){try{const c=JSON.parse(localStorage.getItem('devizpro-firebase-config')||'{}');ids.forEach((id,i)=>$(id).value=c[['apiKey','authDomain','projectId','appId','messagingSenderId','storageBucket'][i]]||'')}catch(e){}}
-function setUI(){ $('authStatus').textContent=user?'Conectat: '+user.email:'Neconectat';$('authForms').classList.toggle('hidden',!!user);$('authActions').classList.toggle('hidden',!!user);$('signedActions').classList.toggle('hidden',!user)}
-async function init(){const c=config();if(!c.apiKey||!c.authDomain||!c.projectId||!c.appId){message('Completează configurația Firebase și salveaz-o.');return}try{app=initializeApp(c,'devizpro-'+Date.now());auth=getAuth(app);store=getFirestore(app);onAuthStateChanged(auth,async u=>{user=u;setUI();if(u){await pull();message('Conectat. Datele contului sunt sincronizate în cloud.')}else message('Nu ești conectat. Datele existente rămân salvate local.');});ready=true;message('Firebase conectat. Te poți înregistra sau autentifica.')}catch(e){message('Eroare Firebase: '+e.message)}}
-async function pull(){if(!user||!store)return;try{const ref=doc(store,'users',user.uid,'private','workspace');const snap=await getDoc(ref);if(snap.exists())window.devizApplyCloudData(snap.data());else await push();}catch(e){message('Nu am putut încărca datele: '+e.message)}}
-async function push(){if(!user||!store)return;try{const raw=JSON.parse(localStorage.getItem('devizpro-v2-data')||'{}');await setDoc(doc(store,'users',user.uid,'private','workspace'),{quotes:raw.quotes||[],clients:raw.clients||[],settings:raw.settings||{},updatedAt:new Date().toISOString()});message('Sincronizare finalizată.')}catch(e){message('Eroare la sincronizare: '+e.message)}}
-window.devizCloudSave=(data)=>{if(user&&store){setDoc(doc(store,'users',user.uid,'private','workspace'),{...data,updatedAt:new Date().toISOString()}).catch(e=>message('Eroare sincronizare: '+e.message))}};
-$('saveFirebase').onclick=()=>{const c=config();if(!c.apiKey||!c.authDomain||!c.projectId||!c.appId){message('Completează cel puțin API Key, Auth Domain, Project ID și App ID.');return}localStorage.setItem('devizpro-firebase-config',JSON.stringify(c));message('Configurație salvată. Apasă „Conectează Firebase”.')};
-$('testFirebase').onclick=init;
-$('registerBtn').onclick=async()=>{if(!auth){message('Configurează și conectează Firebase mai întâi.');return}try{const x=await createUserWithEmailAndPassword(auth,$('authEmail').value.trim(),$('authPassword').value);user=x.user;await push()}catch(e){message('Nu am putut crea contul: '+e.message)}};
-$('loginBtn').onclick=async()=>{if(!auth){message('Configurează și conectează Firebase mai întâi.');return}try{await signInWithEmailAndPassword(auth,$('authEmail').value.trim(),$('authPassword').value)}catch(e){message('Autentificare eșuată: '+e.message)}};
-$('resetBtn').onclick=async()=>{if(!auth){message('Configurează și conectează Firebase mai întâi.');return}try{await sendPasswordResetEmail(auth,$('authEmail').value.trim());message('Am trimis linkul de resetare. Verifică și folderul Spam.')}catch(e){message('Nu am putut trimite resetarea: '+e.message)}};
-$('logoutBtn').onclick=()=>signOut(auth);$('syncBtn').onclick=push;
-loadConfig();setUI();
+import { initializeApp, getApp, getApps } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
+} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
+} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+const $ = id => document.getElementById(id);
+
+const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyCnoRNI5iCmZAXjBRYLQ0pPgD0rLPa_GYc',
+  authDomain: 'devizpro-romania.firebaseapp.com',
+  projectId: 'devizpro-romania',
+  appId: '1:842854137061:web:073daa667c7741edfce80c'
+};
+
+let app = null;
+let auth = null;
+let store = null;
+let user = null;
+let initPromise = null;
+
+function message(t) {
+  $('authMessage').textContent = t;
+}
+
+function setUI() {
+  $('authStatus').textContent = user
+    ? 'Conectat: ' + user.email
+    : 'Neconectat';
+
+  $('authForms').classList.toggle('hidden', !!user);
+  $('authActions').classList.toggle('hidden', !!user);
+  $('signedActions').classList.toggle('hidden', !user);
+}
+
+async function init() {
+  if (auth && store) return true;
+  if (initPromise) return initPromise;
+
+  initPromise = (async () => {
+    try {
+      app = getApps().some(a => a.name === 'devizpro')
+        ? getApp('devizpro')
+        : initializeApp(FIREBASE_CONFIG, 'devizpro');
+
+      auth = getAuth(app);
+      store = getFirestore(app);
+
+      await setPersistence(auth, browserLocalPersistence);
+
+      onAuthStateChanged(auth, async u => {
+        user = u;
+        setUI();
+
+        if (u) {
+          await pull();
+          message('Conectat. Datele contului sunt sincronizate în cloud.');
+        } else {
+          message('Nu ești conectat. Datele locale rămân salvate.');
+        }
+      });
+
+      return true;
+    } catch (e) {
+      message('Eroare Firebase: ' + e.message);
+      initPromise = null;
+      return false;
+    }
+  })();
+
+  return initPromise;
+}
+
+async function pull() {
+  if (!user || !store) return;
+
+  try {
+    const ref = doc(store, 'users', user.uid, 'private', 'workspace');
+    const snap = await getDoc(ref);
+
+    if (snap.exists()) {
+      window.devizApplyCloudData(snap.data());
+    } else {
+      const emptyData = {
+        quotes: [],
+        clients: [],
+        settings: {},
+        updatedAt: new Date().toISOString()
+      };
+
+      await setDoc(ref, emptyData);
+      window.devizApplyCloudData(emptyData);
+    }
+  } catch (e) {
+    message('Nu am putut încărca datele: ' + e.message);
+  }
+}
+
+async function push() {
+  if (!user || !store) return;
+
+  try {
+    const raw = JSON.parse(
+      localStorage.getItem('devizpro-v2-data') || '{}'
+    );
+
+    await setDoc(
+      doc(store, 'users', user.uid, 'private', 'workspace'),
+      {
+        quotes: raw.quotes || [],
+        clients: raw.clients || [],
+        settings: raw.settings || {},
+        updatedAt: new Date().toISOString()
+      }
+    );
+
+    message('Sincronizare finalizată.');
+  } catch (e) {
+    message('Eroare la sincronizare: ' + e.message);
+  }
+}
+
+window.devizCloudSave = data => {
+  if (user && store) {
+    setDoc(
+      doc(store, 'users', user.uid, 'private', 'workspace'),
+      {
+        ...data,
+        updatedAt: new Date().toISOString()
+      }
+    ).catch(e => message('Eroare sincronizare: ' + e.message));
+  }
+};
+
+$('saveFirebase').onclick = () => {
+  message('Firebase este configurat automat. Nu mai trebuie să introduci cheile.');
+};
+
+$('testFirebase').onclick = init;
+
+$('registerBtn').onclick = async () => {
+  try {
+    await init();
+
+    await createUserWithEmailAndPassword(
+      auth,
+      $('authEmail').value.trim(),
+      $('authPassword').value
+    );
+
+    message('Cont creat cu succes!');
+  } catch (e) {
+    message('Nu am putut crea contul: ' + e.message);
+  }
+};
+
+$('loginBtn').onclick = async () => {
+  try {
+    await init();
+
+    await signInWithEmailAndPassword(
+      auth,
+      $('authEmail').value.trim(),
+      $('authPassword').value
+    );
+  } catch (e) {
+    message('Autentificare eșuată: ' + e.message);
+  }
+};
+
+$('resetBtn').onclick = async () => {
+  try {
+    await init();
+
+    await sendPasswordResetEmail(
+      auth,
+      $('authEmail').value.trim()
+    );
+
+    message('Am trimis linkul de resetare. Verifică și Spam.');
+  } catch (e) {
+    message('Nu am putut trimite resetarea: ' + e.message);
+  }
+};
+
+$('logoutBtn').onclick = () => signOut(auth);
+$('syncBtn').onclick = push;
+
+setUI();
+init();
 </script>
 </body></html>
