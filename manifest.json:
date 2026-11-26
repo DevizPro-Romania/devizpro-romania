@@ -1,1 +1,23 @@
 
+{
+  "id": "./",
+  "name": "DevizPro România",
+  "short_name": "DevizPro",
+  "description": "Aplicație pentru devize de construcții și manoperă.",
+  "lang": "ro",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f3f5fa",
+  "theme_color": "#14213d",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
+
