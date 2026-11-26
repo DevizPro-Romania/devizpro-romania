@@ -1,543 +1,487 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DevizPro România 4.0</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#14213d">
+<meta name="description" content="DevizPro România - devize pentru construcții">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>DevizPro România 4.1</title>
 <style>
-:root{--navy:#14213d;--blue:#2457d6;--bg:#f3f5fa;--line:#e3e7ef;--muted:#667085;--green:#16804a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#172033;font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{background:var(--navy);color:#fff;padding:18px max(16px,calc((100% - 1050px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px}
-.brand{font-weight:850;font-size:21px}.brand small{display:block;font-size:11px;color:#cbd5e1;font-weight:500;letter-spacing:1.2px}
-.ver{font-size:11px;background:#263c63;border-radius:20px;padding:6px 10px}.brandmark{display:inline-grid;place-items:center;width:34px;height:34px;margin-right:9px;border-radius:10px;background:#fff;color:var(--navy);font-weight:900}.brandline{display:flex;align-items:center}.feature-note{background:#eef4ff;border:1px solid #d8e4ff;border-radius:10px;padding:12px;color:#263d85;font-size:13px;line-height:1.5}.search{max-width:320px}.subgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pricecard{border:1px solid var(--line);border-radius:12px;padding:14px}.pricecard strong{font-size:22px}.pricecard ul{padding-left:18px;color:#475467;font-size:13px;line-height:1.8}
-main{max-width:1050px;margin:20px auto;padding:0 14px 40px}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
-nav button,.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}
-nav button{background:#e8ecf5;color:#344054}nav button.active{background:var(--blue);color:#fff}
-.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;margin-bottom:14px;box-shadow:0 3px 14px #17203308}
-h2{font-size:17px;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-label{display:block;color:#475467;font-size:12px;font-weight:700;margin:0 0 5px}
-input,textarea,select{width:100%;border:1px solid #cfd5df;border-radius:8px;padding:10px;font:inherit;color:#172033;background:#fff}
-textarea{min-height:65px;resize:vertical}
-.btn.primary{background:var(--blue);color:#fff}.btn.soft{background:#edf1ff;color:#263d85}.btn.danger{background:#fff0f0;color:#b42318}.btn.green{background:#e7f6ed;color:#176b40}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-table{width:100%;border-collapse:collapse}th{text-align:left;color:#667085;font-size:12px;padding:8px 5px;border-bottom:1px solid var(--line)}td{padding:7px 4px;border-bottom:1px solid #eef0f3}td input{padding:8px 6px;min-width:0}
-.qty{width:75px}.unit{width:105px}.sum{text-align:right;white-space:nowrap;font-weight:700}.x{border:0;background:#fff0f0;color:#b42318;border-radius:7px;padding:7px;cursor:pointer}
-.totalbox{max-width:310px;margin:12px 0 0 auto}.line{display:flex;justify-content:space-between;padding:6px 0;color:#475467}.grand{font-size:20px;font-weight:850;color:#172033;border-top:1px solid var(--line);padding-top:10px;margin-top:5px}
-.muted{color:var(--muted);font-size:12px;line-height:1.5}.hidden{display:none!important}
-.listitem{border:1px solid var(--line);border-radius:10px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.listitem strong{display:block}.listitem small{color:var(--muted)}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed #cfd5df;border-radius:10px}
-.badge{font-size:11px;border-radius:20px;background:#e7f6ed;color:#176b40;padding:4px 8px;font-weight:750}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-@media(max-width:650px){.grid{grid-template-columns:1fr}.panel{padding:13px}table,thead,tbody,tr,td{display:block}thead{display:none}tbody tr{display:grid;grid-template-columns:1fr 70px 95px 28px;gap:5px;padding:8px 0;border-bottom:1px solid var(--line)}tbody td{border:0;padding:2px}tbody td:first-child{grid-column:1/-1}tbody td:last-child{text-align:center}.sum{font-size:12px}.listitem{align-items:flex-start}}
-@media print{body{background:#fff}header{background:#fff;color:#111;padding:0 0 15px}.brand small{color:#555}main{margin:0;padding:0}nav,.no-print,.x{display:none!important}.panel{box-shadow:none;border:0;padding:8px 0;margin:0 0 8px}input,textarea{border:0;padding:2px 0}th{color:#333}td{border-bottom:1px solid #ddd}.hidden{display:none!important}}
-</style></head>
+:root{--navy:#14213d;--blue:#2457d6;--bg:#f3f5fa;--line:#e1e6ef;--text:#172033;--muted:#667085;--green:#16834a;--red:#b93832}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif}
+header{background:var(--navy);color:white;padding:17px max(15px,calc((100% - 1080px)/2));display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header h1{font-size:21px;margin:0 0 4px}
+header small{color:#d2d9e5}
+main{max-width:1080px;margin:18px auto;padding:0 13px 35px}
+nav{display:flex;gap:7px;overflow-x:auto;padding:3px 0 12px}
+nav button{white-space:nowrap;border:1px solid var(--line);background:white;color:var(--navy);padding:11px 13px;border-radius:9px;font-weight:bold}
+nav button.active{background:var(--blue);color:white}
+button{cursor:pointer;font:inherit}
+.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:16px;margin-bottom:14px;box-shadow:0 3px 13px #14213d09}
+h2{font-size:20px;color:var(--navy);margin:0 0 14px}
+h3{font-size:16px;margin:16px 0 8px}
+label{display:block;font-size:13px;font-weight:bold;margin:10px 0 5px;color:#344054}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cfd6e2;border-radius:8px;font:inherit;background:white;color:var(--text)}
+textarea{min-height:70px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.btn{border:0;border-radius:8px;padding:11px 14px;background:var(--blue);color:white;font-weight:bold;margin:5px 4px 5px 0}
+.btn.secondary{background:#e9eefb;color:var(--navy)}
+.btn.green{background:var(--green)}
+.btn.danger{background:var(--red)}
+.btn:disabled{opacity:.5}
+.muted{color:var(--muted);font-size:13px}
+.status{padding:11px;border-radius:8px;background:#eef2f8;margin:10px 0;font-size:13px}
+.good{background:#e8f7ef;color:#17643a}
+.bad{background:#fff0ee;color:#9c3027}
+.hidden{display:none!important}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:middle}
+th{color:var(--muted)}
+td input{min-width:65px;padding:7px}
+.total{text-align:right;font-size:17px;font-weight:bold;margin:14px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.actions{display:flex;gap:5px;flex-wrap:wrap}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
+@media(max-width:650px){.grid,.grid3{grid-template-columns:1fr}.panel{padding:13px}header{padding:14px}.total{text-align:left}}
+@media print{
+ body{background:white}header,nav,.no-print,footer{display:none!important}
+ main{margin:0;padding:0}body *{visibility:hidden}
+ #editor,#editor *{visibility:visible}#editor{position:absolute;left:0;top:0;width:100%}
+ #editor .panel{box-shadow:none;border:0}input,textarea,select{border:0;padding:2px}
+}
+</style>
+</head>
 <body>
-<header><div class="brandline"><span class="brandmark">DP</span><div class="brand">DevizPro România<small>DEVIZE • OFERTE • LUCRĂRI</small></div></div><span class="ver">VERSIUNEA 4.0 BETA</span></header>
+<header>
+ <div><h1>🧱 DevizPro România</h1><small>Versiunea 4.1</small></div>
+ <small id="topStatus">Salvare locală activă</small>
+</header>
 <main>
-<nav class="no-print">
-<button class="active" data-tab="editor">＋ Deviz nou</button><button data-tab="account">♙ Cont online</button><button data-tab="history">◷ Istoric devize</button><button data-tab="clients">♙ Clienți</button><button data-tab="settings">⚙ Date prestator</button><button data-tab="plans">★ Abonament</button><button data-tab="catalog">▤ Catalog</button>
+<nav class="no-print" id="nav">
+ <button class="active" data-tab="editor">＋ Deviz nou</button>
+ <button data-tab="catalog">▦ Catalog</button>
+ <button data-tab="calculator">⌗ Calculator</button>
+ <button data-tab="history">◷ Istoric</button>
+ <button data-tab="clients">♙ Clienți</button>
+ <button data-tab="settings">⚙ Prestator</button>
+ <button data-tab="account">☁ Cont online</button>
+ <button data-tab="plans">★ Abonament</button>
 </nav>
+
 <section id="editor">
  <div class="panel">
-  <div class="toolbar"><h2>Detalii deviz / ofertă</h2><span class="badge" id="docno">Nou</span></div>
+  <h2 id="editorTitle">Deviz nou</h2>
   <div class="grid">
-   <div><label>Client existent</label><select id="clientPick"><option value="">— Client nou / nesalvat —</option></select></div>
-   <div><label>Data</label><input id="date" type="date"></div>
-   <div><label>Nume client</label><input id="client" placeholder="Numele clientului"></div>
-   <div><label>Telefon client</label><input id="clientPhone" placeholder="07xx xxx xxx"></div>
-   <div><label>Adresă client / lucrare</label><input id="clientAddress" placeholder="Localitate, stradă"></div>
-   <div><label>Descriere lucrare</label><input id="job" placeholder="Ex.: Renovare baie"></div>
+   <div><label>Client</label><input id="qClient" list="clientOptions" placeholder="Nume client"><datalist id="clientOptions"></datalist></div>
+   <div><label>Telefon client</label><input id="qPhone" placeholder="Telefon"></div>
+   <div><label>Adresă lucrare</label><input id="qAddress" placeholder="Localitate, adresă"></div>
+   <div><label>Data devizului</label><input id="qDate" type="date"></div>
+  </div>
+  <label>Descriere lucrare</label><textarea id="qJob" placeholder="Descrie lucrarea..."></textarea>
+  <h3>Articole deviz</h3>
+  <div class="grid">
+   <div><label>Denumire</label><input id="itemDesc" placeholder="Ex: Zidărie BCA"></div>
+   <div><label>Cantitate</label><input id="itemQty" type="number" min="0" step=".01" value="1"></div>
+   <div><label>Unitate de măsură</label><select id="itemUnit"><option>buc</option><option>mp</option><option>mc</option><option>ml</option><option>kg</option><option>tonă</option><option>oră</option><option>zi</option><option>set</option><option>lucrare</option></select></div>
+   <div><label>Preț unitar (lei)</label><input id="itemPrice" type="number" min="0" step=".01" value="0"></div>
+  </div>
+  <button class="btn" id="addItem">＋ Adaugă articol</button>
+  <button class="btn secondary" id="chooseCatalog">Alege din catalog</button>
+  <div class="tablewrap"><table><thead><tr><th>Articol</th><th>Cant.</th><th>Preț</th><th>Total</th><th></th></tr></thead><tbody id="quoteItems"></tbody></table></div>
+  <div class="grid">
+   <div><label>TVA (%)</label><select id="qVat"><option value="0">0%</option><option value="5">5%</option><option value="9">9%</option><option value="11">11%</option><option value="19">19%</option></select></div>
+   <div><label>Condiții / valabilitate</label><input id="qTerms" value="Valabilitate ofertă: 15 zile."></div>
+  </div>
+  <div class="total" id="quoteTotals">Subtotal: 0,00 lei · TVA: 0,00 lei · Total: 0,00 lei</div>
+  <label>Observații</label><textarea id="qNotes" placeholder="Termene, condiții, observații..."></textarea>
+  <div class="no-print">
+   <button class="btn green" id="saveQuote">Salvează devizul</button>
+   <button class="btn secondary" id="newQuote">Deviz nou</button>
+   <button class="btn" id="printQuote">Printează / PDF</button>
+   <button class="btn secondary" id="shareQuote">WhatsApp</button>
   </div>
  </div>
+ <div class="panel"><h3>Date prestator</h3><div id="providerPreview" class="muted">Completează datele în secțiunea Prestator.</div></div>
+</section>
+
+<section id="catalog" class="hidden">
  <div class="panel">
-  <h2>Materiale și manoperă</h2>
-  <table><thead><tr><th>Descriere</th><th>Cant.</th><th>Preț unitar (lei)</th><th style="text-align:right">Total</th><th></th></tr></thead><tbody id="items"></tbody></table>
-  <div class="actions no-print"><button class="btn soft" id="add">＋ Adaugă poziție</button></div>
-  <div class="totalbox">
-   <div class="line"><span>Subtotal</span><strong id="subtotal">0,00 lei</strong></div>
-   <div class="line"><span>TVA (%)</span><input id="vat" type="number" min="0" max="100" value="0" style="width:70px;padding:5px"></div>
-   <div class="line"><span>Valoare TVA</span><strong id="tax">0,00 lei</strong></div>
-   <div class="line grand"><span>TOTAL</span><strong id="grand">0,00 lei</strong></div>
+  <h2>Catalog materiale și manoperă</h2>
+  <p class="muted">Prețurile inițiale sunt zero. Completează prețurile tale reale.</p>
+  <div class="grid">
+   <div><label>Caută</label><input id="catalogSearch" placeholder="Caută articol..."></div>
+   <div><label>Filtru</label><select id="catalogFilter"><option value="all">Toate</option><option>Material</option><option>Manoperă</option><option>Altele</option></select></div>
+   <div><label>Denumire articol</label><input id="catName" placeholder="Denumire"></div>
+   <div><label>Categorie</label><select id="catType"><option>Material</option><option>Manoperă</option><option>Altele</option></select></div>
+   <div><label>UM</label><input id="catUnit" value="buc"></div>
+   <div><label>Preț unitar (lei)</label><input id="catPrice" type="number" min="0" step=".01" value="0"></div>
   </div>
- </div>
- <div class="panel">
-  <h2>Observații și condiții</h2><textarea id="terms" placeholder="Ex.: Oferta este valabilă 15 zile. Termenul de execuție se stabilește de comun acord."></textarea>
-  <div class="actions no-print">
-   <button class="btn primary" id="saveQuote">Salvează devizul</button><button class="btn soft" id="print">Printează / Salvează PDF</button><button class="btn soft" id="newQuote">Deviz nou</button>
-  </div>
-  <p class="muted">Devizele și clienții se păstrează local în browserul acestui dispozitiv. Exportul PDF este o ofertă/deviz, nu o factură fiscală.</p>
+  <button class="btn" id="saveCatalogItem">Adaugă în catalog</button>
+  <div id="catalogList"></div>
  </div>
 </section>
-<section id="history" class="hidden"><div class="panel"><div class="toolbar"><h2>Istoric devize</h2><span class="muted" id="quoteCount">0 devize</span></div><input class="search" id="quoteSearch" placeholder="Caută după client, lucrare sau număr..." oninput="renderQuotes()"><div class="actions no-print"><button class="btn soft" id="exportData">Descarcă backup</button><label class="btn soft" for="importData" style="display:inline-block;margin:0;cursor:pointer">Restaurare backup</label><input id="importData" type="file" accept="application/json" class="hidden"></div><div id="quoteList"></div></div></section>
-<section id="clients" class="hidden"><div class="panel"><h2>Registru clienți</h2><div class="grid"><div><label>Nume client</label><input id="newClientName" placeholder="Nume / firmă"></div><div><label>Telefon</label><input id="newClientPhone" placeholder="Telefon"></div><div style="grid-column:1/-1"><label>Adresă</label><input id="newClientAddress" placeholder="Adresă client"></div></div><div class="actions"><button class="btn primary" id="addClient">Adaugă client</button></div><div id="clientList" style="margin-top:12px"></div></div></section>
-<section id="settings" class="hidden"><div class="panel"><h2>Datele prestatorului</h2><div class="grid">
-<div><label>Nume / Firmă</label><input id="bizName" placeholder="Numele tău sau firma"></div>
-<div><label>Telefon</label><input id="bizPhone" placeholder="07xx xxx xxx"></div>
-<div><label>E-mail</label><input id="bizEmail" placeholder="email@exemplu.ro"></div>
-<div><label>CUI (dacă există)</label><input id="bizCui" placeholder="RO..."></div>
-<div style="grid-column:1/-1"><label>Adresă prestator</label><input id="bizAddress" placeholder="Localitate, adresă"></div>
-</div><div class="actions"><button class="btn primary" id="saveSettings">Salvează datele</button></div><p class="muted">Datele prestatorului vor apărea pe documentele PDF generate pe acest dispozitiv.</p></div></section>section id="account" class="hidden">
+
+<section id="calculator" class="hidden">
  <div class="panel">
-  <div class="toolbar"><h2>Cont DevizPro</h2><span class="badge" id="authStatus">Neconectat</span></div>
-  <p class="muted">Înregistrează
+  <h2>Calculator suprafață și volum</h2>
+  <p class="muted">Calcule geometrice orientative; verifică dimensiunile în teren.</p>
+  <div class="grid3">
+   <div><label>Lungime (m)</label><input id="calcL" type="number" min="0" step=".01" value="1"></div>
+   <div><label>Lățime (m)</label><input id="calcW" type="number" min="0" step=".01" value="1"></div>
+   <div><label>Înălțime / grosime (m)</label><input id="calcH" type="number" min="0" step=".01" value="1"></div>
+  </div>
+  <button class="btn" id="calculate">Calculează</button>
+  <div class="status" id="calcResult">Completează dimensiunile și apasă Calculează.</div>
+  <button class="btn secondary" id="useArea">Adaugă suprafața în deviz</button>
+  <button class="btn secondary" id="useVolume">Adaugă volumul în deviz</button>
+ </div>
+ <div class="panel">
+  <h3>Calculator preț</h3>
+  <div class="grid"><div><label>Cantitate</label><input id="costQty" type="number" min="0" value="1"></div><div><label>Preț unitar</label><input id="costPrice" type="number" min="0" value="0"></div></div>
+  <div class="total" id="costResult">Total: 0,00 lei</div>
+ </div>
+</section>
+
+<section id="history" class="hidden"><div class="panel"><h2>Istoric devize</h2><input id="historySearch" placeholder="Caută client, număr sau lucrare..."><div id="historyList"></div></div></section>
+
+<section id="clients" class="hidden">
+ <div class="panel">
+  <h2>Clienți</h2>
+  <div class="grid">
+   <div><label>Nume client</label><input id="clientName" placeholder="Nume / firmă"></div>
+   <div><label>Telefon</label><input id="clientPhone" placeholder="Telefon"></div>
+   <div><label>Adresă</label><input id="clientAddress" placeholder="Adresă"></div>
+   <div><label>Email</label><input id="clientEmail" type="email" placeholder="Email"></div>
+  </div>
+  <button class="btn" id="saveClient">Adaugă client</button><div id="clientList"></div>
+ </div>
+</section>
+
+<section id="settings" class="hidden">
+ <div class="panel">
+  <h2>Date prestator</h2>
+  <label>Nume / firmă</label><input id="pName" placeholder="Numele tău sau firma">
+  <div class="grid">
+   <div><label>CUI</label><input id="pCui"></div><div><label>Nr. Registrul Comerțului</label><input id="pReg"></div>
+   <div><label>Telefon</label><input id="pPhone"></div><div><label>Email</label><input id="pEmail" type="email"></div>
+   <div><label>Adresă</label><input id="pAddress"></div><div><label>IBAN</label><input id="pIban"></div>
+  </div>
+  <button class="btn green" id="saveSettings">Salvează datele</button>
+ </div>
+ <div class="panel">
+  <h3>Backup și restaurare</h3>
+  <p class="muted">Backup-ul include devize, clienți, catalog și setări.</p>
+  <button class="btn" id="exportBackup">Descarcă backup</button>
+  <label>Importă backup JSON</label><input id="importFile" type="file" accept=".json,application/json">
+  <button class="btn secondary" id="importBackup">Importă backup</button>
+ </div>
+</section>
+
 <section id="account" class="hidden">
  <div class="panel">
-  <div class="toolbar"><h2>Cont DevizPro</h2><span class="badge" id="authStatus">Neconectat</span></div>
-  <p class="muted">Înregistrează-te cu e-mail și parolă. Autentificarea și sincronizarea online se activează după configurarea Firebase și publicarea aplicației pe un domeniu HTTPS autorizat.</p>
-  <div id="authForms" class="grid">
-   <div><label>Adresă e-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="nume@exemplu.ro"></div>
-   <div><label>Parolă (minimum 6 caractere)</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Parola ta"></div>
+  <h2>Cont DevizPro online</h2>
+  <div id="accountStatus" class="status">Datele se salvează local. Conectează-te pentru sincronizare online.</div>
+  <label>Email</label><input id="authEmail" type="email" autocomplete="email">
+  <label>Parolă</label><input id="authPassword" type="password" autocomplete="current-password">
+  <div class="actions">
+   <button class="btn" id="register">Creează cont</button>
+   <button class="btn secondary" id="login">Autentificare</button>
+   <button class="btn secondary" id="resetPassword">Am uitat parola</button>
+   <button class="btn danger" id="logout">Deconectare</button>
   </div>
-  <div class="actions" id="authActions"><button class="btn primary" id="registerBtn">Creează cont</button><button class="btn soft" id="loginBtn">Intră în cont</button><button class="btn soft" id="resetBtn">Am uitat parola</button></div>
-  <div class="actions hidden" id="signedActions"><button class="btn danger" id="logoutBtn">Deconectare</button><button class="btn soft" id="syncBtn">Sincronizează acum</button></div>
-  <p id="authMessage" class="feature-note" role="status">Conturile online nu sunt încă active. Completează configurația Firebase, activează Email/Password, configurează Firestore și deschide aplicația de pe HTTPS.</p>
- </div>
- <div class="panel">
-  <h2>Configurare Firebase</h2>
-  <p class="muted">Configurația se obține din Firebase Console → Project settings → Your apps → Web app. Cheile web Firebase sunt identificatori publici; securitatea datelor trebuie impusă prin regulile Firestore.</p>
-  <div class="grid">
-   <div><label>API Key</label><input id="fbApiKey" autocomplete="off" placeholder="AIza..."></div>
-   <div><label>Auth Domain</label><input id="fbAuthDomain" placeholder="proiect.firebaseapp.com"></div>
-   <div><label>Project ID</label><input id="fbProjectId" placeholder="numele-proiectului"></div>
-   <div><label>App ID</label><input id="fbAppId" placeholder="1:...:web:..."></div>
-   <div><label>Messaging Sender ID (opțional)</label><input id="fbSenderId" placeholder="Număr proiect"></div>
-   <div><label>Storage Bucket (opțional)</label><input id="fbBucket" placeholder="proiect.firebasestorage.app"></div>
-  </div>
-  <div class="actions"><button class="btn primary" id="saveFirebase">Salvează configurarea</button><button class="btn soft" id="testFirebase">Conectează Firebase</button></div>
-  <p class="muted">Configurarea rămâne în acest browser. Nu introduce parole Firebase sau chei private aici. Activează Email/Password în Authentication și creează Firestore Database în Firebase Console.</p>
- </div>
- <div class="panel">
-  <h2>Pașii pentru activare</h2>
-  <ol class="muted"><li>Creează un proiect la <b>console.firebase.google.com</b>.</li><li>Adaugă o aplicație Web și copiază valorile de configurare de mai sus.</li><li>În Authentication → Sign-in method activează Email/Password.</li><li>Creează Firestore Database și aplică reguli care permit fiecărui utilizator să citească/scrie numai documentul cu propriul UID.</li><li>Salvează configurația și apasă „Conectează Firebase”.</li></ol>
+  <button class="btn green" id="syncNow">Sincronizează acum</button>
+  <p class="muted">Ai nevoie de internet și de confirmarea emailului pentru sincronizare. Datele locale rămân pe dispozitiv.</p>
  </div>
 </section>
-<section id="plans" class="hidden"><div class="panel"><h2>DevizPro – planuri</h2><p class="muted">Alege varianta potrivită. Prezentarea abonamentului este informativă; plata și conturile online nu sunt activate în această versiune.</p><div class="subgrid"><div class="pricecard"><h3>Gratuit</h3><strong>0 lei</strong><ul><li>Creare și salvare devize</li><li>Istoric și registru clienți</li><li>Export PDF prin imprimare</li><li>Trimitere ofertă prin WhatsApp</li></ul></div><div class="pricecard"><h3>Premium</h3><strong>19 lei/lună</strong><ul><li>Toate funcțiile gratuite</li><li>Pregătit pentru funcții avansate</li><li>Suport prioritar – planificat</li><li>Sincronizare online – planificată</li></ul><p class="muted">Abonamentul nu poate fi cumpărat încă. Nu se efectuează nicio plată.</p></div></div></div></section>
-</main>
-<script>
-const $=id=>document.getElementById(id), KEY='devizpro-v2-data';
-const money=n=>(Number(n)||0).toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2})+' lei';
-let db={quotes:[],clients:[],settings:{},currentId:null};
-const CATALOG_KEY='devizpro-catalog';
 
-let catalog=[
- {name:'Ciment',category:'material',unit:'sac',price:0},
- {name:'Nisip',category:'material',unit:'mc',price:0},
- {name:'Pietriș',category:'material',unit:'mc',price:0},
- {name:'BCA',category:'material',unit:'buc',price:0},
- {name:'Cărămidă',category:'material',unit:'buc',price:0},
- {name:'Fier beton',category:'material',unit:'kg',price:0},
- {name:'Gresie',category:'material',unit:'mp',price:0},
- {name:'Faianță',category:'material',unit:'mp',price:0},
- {name:'Lavabilă',category:'material',unit:'litru',price:0},
- {name:'Zidărie',category:'manopera',unit:'mp',price:0},
- {name:'Tencuială',category:'manopera',unit:'mp',price:0},
- {name:'Glet',category:'manopera',unit:'mp',price:0},
- {name:'Zugrăveli',category:'manopera',unit:'mp',price:0},
- {name:'Montaj gresie',category:'manopera',unit:'mp',price:0}
-];
-
-function loadCatalog(){
- try{
-  const saved=JSON.parse(localStorage.getItem(CATALOG_KEY)||'null');
-  if(Array.isArray(saved)) catalog=saved;
- }catch(e){}
-}
-
-function saveCatalog(){
- localStorage.setItem(CATALOG_KEY,JSON.stringify(catalog));
-}
-
-function safeCatalogText(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  '&':'&amp;','<':'&lt;','>':'&gt;',
-  '"':'&quot;',"'":'&#39;'
- }[c]));
-}
-
-function renderCatalog(){
- const list=$('catalogList');
- if(!list)return;
-
- const search=($('catalogSearch')?.value||'').toLowerCase();
- const category=$('catalogCategory')?.value||'all';
-
- const filtered=catalog
- .map((item,index)=>({...item,index}))
- .filter(item=>
-  (category==='all'||item.category===category)&&
-  item.name.toLowerCase().includes(search)
- );
-
- if(!filtered.length){
-  list.innerHTML='<p>Nu există produse în această căutare.</p>';
-  return;
- }
-
- list.innerHTML=filtered.map(item=>`
-  <div class="panel" style="margin:10px 0;padding:12px">
-   <strong>${safeCatalogText(item.name)}</strong>
-   <div class="muted">
-    ${item.category==='material'?'Material':'Manoperă'}
-    · ${safeCatalogText(item.unit)}
-   </div>
-   <p>Preț: <strong>${money(item.price)}</strong></p>
-   <button type="button" onclick="addCatalogToQuote(${item.index})">
-    ＋ Adaugă în deviz
-   </button>
-   <button type="button" onclick="editCatalogPrice(${item.index})">
-    ✎ Modifică preț
-   </button>
+<section id="plans" class="hidden">
+ <div class="panel">
+  <h2>Abonamente DevizPro</h2>
+  <div class="grid">
+   <div class="panel"><h3>Gratuit</h3><h2>0 lei</h2><p>Devize, clienți, catalog și salvare locală.</p></div>
+   <div class="panel"><h3>Premium</h3><h2>19 lei / 30 zile</h2><p>Plan propus pentru funcții extinse.</p><p class="muted">Plata online nu este activată. Nu efectua nicio plată din această pagină.</p></div>
   </div>
- `).join('');
-}
-
-function addCatalogItem(){
- const name=prompt('Denumirea materialului sau lucrării:');
- if(!name||!name.trim())return;
-
- const category=prompt('Scrie material sau manopera:','material');
- if(!category)return;
-
- const type=category.trim().toLowerCase();
- if(!['material','manopera'].includes(type)){
-  alert('Alege material sau manopera.');
-  return;
- }
-
- const unit=prompt('Unitatea de măsură (buc, mp, mc, kg etc.):','buc');
- if(!unit||!unit.trim())return;
-
- const price=Number(prompt('Prețul unitar în lei:','0'));
- if(!Number.isFinite(price)||price<0){
-  alert('Preț invalid.');
-  return;
- }
-
- catalog.push({
-  name:name.trim(),
-  category:type,
-  unit:unit.trim(),
-  price
- });
-
- saveCatalog();
- renderCatalog();
-}
-
-function editCatalogPrice(index){
- const item=catalog[index];
- if(!item)return;
-
- const value=prompt('Noul preț pentru '+item.name+':',item.price);
- if(value===null)return;
-
- const price=Number(value);
- if(!Number.isFinite(price)||price<0){
-  alert('Preț invalid.');
-  return;
- }
-
- item.price=price;
- saveCatalog();
- renderCatalog();
-}
-
-function addCatalogToQuote(index){
- const item=catalog[index];
- if(!item)return;
-
- if(typeof addRow!=='function'){
-  alert('Editorul de deviz nu este disponibil.');
-  return;
- }
-
- addRow(item.name,1,item.price);
- alert(item.name+' a fost adăugat în deviz.');
-}
-
-loadCatalog();
-$('catalogSearch')?.addEventListener('input',renderCatalog);
-$('catalogCategory')?.addEventListener('change',renderCatalog);
-renderCatalog();
-
-function exportBackup(){let blob=new Blob([JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='devizpro-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
-$('exportData')?.addEventListener('click',exportBackup);
-$('importData')?.addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let d=JSON.parse(await f.text());if(!Array.isArray(d.quotes)||!Array.isArray(d.clients)||typeof d.settings!=='object')throw new Error('format');if(!confirm('Restaurarea va înlocui datele DevizPro salvate pe acest dispozitiv. Continui?'))return;db.quotes=d.quotes;db.clients=d.clients;db.settings=d.settings||{};db.currentId=null;persist();fillSettings();renderQuotes();renderClients();refreshClientPick();alert('Backup restaurat cu succes.')}catch(err){alert('Fișierul nu pare a fi un backup DevizPro valid.')}e.target.value=''});
-function loadDB(){try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');db={quotes:d.quotes||[],clients:d.clients||[],settings:d.settings||{},currentId:null}}catch(e){}}
-function persist(){localStorage.setItem(KEY,JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings}));if(window.devizCloudSave)window.devizCloudSave({quotes:db.quotes,clients:db.clients,settings:db.settings})}
-function switchTab(tab){document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('hidden',s.id!==tab));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));if(tab==='history')renderQuotes();if(tab==='clients')renderClients();if(tab==='editor')refreshClientPick()}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
-function addRow(desc='',qty=1,price=0){const tr=document.createElement('tr');tr.innerHTML='<td><input class="desc" placeholder="Ex.: Montaj priză"></td><td><input class="qty" type="number" min="0" step="0.01"></td><td><input class="unit" type="number" min="0" step="0.01"></td><td class="sum">0,00 lei</td><td><button class="x no-print">×</button></td>';tr.querySelector('.desc').value=desc;tr.querySelector('.qty').value=qty;tr.querySelector('.unit').value=price;tr.querySelectorAll('input').forEach(i=>i.oninput=calc);tr.querySelector('.x').onclick=()=>{tr.remove();calc()};$('items').appendChild(tr);calc()}
-function rows(){return [...document.querySelectorAll('#items tr')].map(t=>({desc:t.querySelector('.desc').value,qty:Number(t.querySelector('.qty').value)||0,price:Number(t.querySelector('.unit').value)||0}))}
-function calc(){let sub=0;document.querySelectorAll('#items tr').forEach(t=>{let s=(Number(t.querySelector('.qty').value)||0)*(Number(t.querySelector('.unit').value)||0);sub+=s;t.querySelector('.sum').textContent=money(s)});let tax=sub*(Math.max(0,Number($('vat').value)||0))/100;$('subtotal').textContent=money(sub);$('tax').textContent=money(tax);$('grand').textContent=money(sub+tax)}
-$('add').onclick=()=>addRow();$('vat').oninput=calc;
-function formData(){return {id:db.currentId||('DP-'+Date.now()),date:$('date').value,client:$('client').value.trim(),phone:$('clientPhone').value.trim(),address:$('clientAddress').value.trim(),job:$('job').value.trim(),terms:$('terms').value,vat:Number($('vat').value)||0,items:rows(),updated:new Date().toISOString()}}
-function clearEditor(){db.currentId=null;$('docno').textContent='Deviz nou';['client','clientPhone','clientAddress','job','terms'].forEach(k=>$(k).value='');$('date').value=new Date().toISOString().slice(0,10);$('vat').value=0;$('items').innerHTML='';addRow('Manoperă',1,0);refreshClientPick()}
-$('newQuote').onclick=clearEditor;
-$('saveQuote').onclick=()=>{let q=formData();if(!q.client){alert('Completează numele clientului înainte de salvare.');return}let i=db.quotes.findIndex(x=>x.id===q.id);if(i>=0)db.quotes[i]=q;else db.quotes.unshift(q);db.currentId=q.id;persist();$('docno').textContent=q.id;alert('Deviz salvat în istoric!');};
-$('print').onclick=()=>{if(!db.settings.name&&!db.settings.phone){/* date prestator optional */}window.print()};
-function refreshClientPick(){let s=$('clientPick');s.innerHTML='<option value="">— Client nou / nesalvat —</option>';db.clients.forEach((c,i)=>{let o=document.createElement('option');o.value=i;o.textContent=c.name;s.appendChild(o)})}
-$('clientPick').onchange=()=>{let c=db.clients[Number($('clientPick').value)];if(c){$('client').value=c.name;$('clientPhone').value=c.phone||'';$('clientAddress').value=c.address||''}};
-function quoteTotal(q){let n=(q.items||[]).reduce((s,x)=>s+(Number(x.qty)||0)*(Number(x.price)||0),0);return n+n*(Number(q.vat)||0)/100}
-function shareQuote(q){let total=money(quoteTotal(q));let msg=`Bună ziua! Vă trimit oferta DevizPro România\nClient: ${q.client}\nLucrare: ${q.job||'—'}\nTotal: ${total}\nNumăr deviz: ${q.id}\nOferta detaliată o pot trimite în format PDF.`;let phone=(q.phone||'').replace(/\D/g,'');let url='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);window.open(url,'_blank')}
-function duplicateQuote(id){let q=db.quotes.find(x=>x.id===id);if(!q)return;let copy=JSON.parse(JSON.stringify(q));copy.id='DP-'+Date.now();copy.date=new Date().toISOString().slice(0,10);copy.updated=new Date().toISOString();db.currentId=null;editQuoteData(copy);switchTab('editor');$('docno').textContent='Copie nouă';}
-function editQuoteData(q){db.currentId=q.id;$('docno').textContent=q.id;$('date').value=q.date||'';$('client').value=q.client||'';$('clientPhone').value=q.phone||'';$('clientAddress').value=q.address||'';$('job').value=q.job||'';$('terms').value=q.terms||'';$('vat').value=q.vat||0;$('items').innerHTML='';(q.items||[]).forEach(x=>addRow(x.desc,x.qty,x.price));calc()}
-function renderQuotes(){let box=$('quoteList');$('quoteCount').textContent=db.quotes.length+' devize';let term=($('quoteSearch')?.value||'').toLowerCase();let list=db.quotes.filter(q=>[q.client,q.job,q.id].join(' ').toLowerCase().includes(term));if(!list.length){box.innerHTML='<div class="empty">'+(db.quotes.length?'Nu există rezultate pentru căutarea ta.':'Nu ai devize salvate încă.')+'</div>';return}box.innerHTML='';list.forEach(q=>{let el=document.createElement('div');el.className='listitem';let info=document.createElement('div');info.innerHTML='<strong></strong><small></small>';info.querySelector('strong').textContent=q.client+' · '+money(quoteTotal(q));info.querySelector('small').textContent=(q.date||'')+' · '+(q.job||'Fără descriere')+' · '+q.id;let acts=document.createElement('div');acts.className='actions no-print';let open=document.createElement('button');open.className='btn soft';open.textContent='Deschide';open.onclick=()=>{editQuote(q.id);switchTab('editor')};let dup=document.createElement('button');dup.className='btn soft';dup.textContent='Duplică';dup.onclick=()=>duplicateQuote(q.id);let wa=document.createElement('button');wa.className='btn green';wa.textContent='WhatsApp';wa.onclick=()=>shareQuote(q);let del=document.createElement('button');del.className='btn danger';del.textContent='Șterge';del.onclick=()=>{if(confirm('Ștergi acest deviz?')){db.quotes=db.quotes.filter(x=>x.id!==q.id);persist();renderQuotes()}};acts.append(open,dup,wa,del);el.append(info,acts);box.append(el)})}
-function editQuote(id){let q=db.quotes.find(x=>x.id===id);if(q)editQuoteData(q)}
-$('addClient').onclick=()=>{let c={name:$('newClientName').value.trim(),phone:$('newClientPhone').value.trim(),address:$('newClientAddress').value.trim()};if(!c.name){alert('Scrie numele clientului.');return}db.clients.push(c);persist();['newClientName','newClientPhone','newClientAddress'].forEach(k=>$(k).value='');renderClients();refreshClientPick()};
-function renderClients(){let box=$('clientList');if(!db.clients.length){box.innerHTML='<div class="empty">Nu ai clienți salvați încă.</div>';return}box.innerHTML='';db.clients.forEach((c,i)=>{let el=document.createElement('div');el.className='listitem';let d=document.createElement('div');let st=document.createElement('strong');st.textContent=c.name;let sm=document.createElement('small');sm.textContent=[c.phone,c.address].filter(Boolean).join(' · ');d.append(st,sm);let b=document.createElement('button');b.className='btn danger';b.textContent='Șterge';b.onclick=()=>{if(confirm('Ștergi clientul?')){db.clients.splice(i,1);persist();renderClients();refreshClientPick()}};el.append(d,b);box.append(el)})}
-function fillSettings(){let s=db.settings;[['bizName','name'],['bizPhone','phone'],['bizEmail','email'],['bizCui','cui'],['bizAddress','address']].forEach(([a,b])=>$(a).value=s[b]||'')}
-$('saveSettings').onclick=()=>{db.settings={name:$('bizName').value,phone:$('bizPhone').value,email:$('bizEmail').value,cui:$('bizCui').value,address:$('bizAddress').value};persist();alert('Datele prestatorului au fost salvate!')};
-const oldPrint=window.print;window.addEventListener('beforeprint',()=>{let s=db.settings;let old=document.getElementById('printSeller');if(old)old.remove();let p=document.createElement('div');p.id='printSeller';p.className='panel';p.innerHTML='<h2>Prestator</h2>';let d=document.createElement('div');d.textContent=[s.name,s.address,s.phone,s.email,s.cui?'CUI: '+s.cui:''].filter(Boolean).join(' · ');p.append(d);$('editor').insertBefore(p,$('editor').firstChild)});
-window.addEventListener('afterprint',()=>{let p=document.getElementById('printSeller');if(p)p.remove()});
-loadDB();fillSettings();clearEditor();refreshClientPick();window.devizApplyCloudData=(d)=>{if(!d||typeof d!=='object')return;db.quotes=Array.isArray(d.quotes)?d.quotes:db.quotes;db.clients=Array.isArray(d.clients)?d.clients:db.clients;db.settings=d.settings&&typeof d.settings==='object'?d.settings:db.settings;localStorage.setItem(KEY,JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings}));fillSettings();renderQuotes();renderClients();refreshClientPick()};
-</script>
+ </div>
+</section>
+</main>
+<footer>DevizPro România · Datele tale îți aparțin. Păstrează periodic un backup.</footer>
 
 <script type="module">
-import { initializeApp, getApp, getApps } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  signOut,
-  onAuthStateChanged,
-  setPersistence,
-  browserLocalPersistence,
-  reload
-} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc
-} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-const $ = id => document.getElementById(id);
-
-const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyCnoRNI5iCmZAXjBRYLQ0pPgD0rLPa_GYc',
-  authDomain: 'devizpro-romania.firebaseapp.com',
-  projectId: 'devizpro-romania',
-  appId: '1:842854137061:web:073daa667c7741edfce80c'
+const FIREBASE_CONFIG={
+ apiKey:"AIzaSyCnoRNI5iCmZAXjBRYLQ0pPgD0rLPa_GYc",
+ authDomain:"devizpro-romania.firebaseapp.com",
+ projectId:"devizpro-romania",
+ appId:"1:842854137061:web:073daa667c7741edfce80c"
 };
+const $=id=>document.getElementById(id);
+const money=n=>(Number(n)||0).toLocaleString("ro-RO",{minimumFractionDigits:2,maximumFractionDigits:2});
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const STORAGE="devizpro-v2-data",CATKEY="devizpro-catalog";
+const seed=[
+ ["Ciment sac 40 kg","Material","sac"],["Nisip","Material","mc"],["Pietriș","Material","mc"],["Balast","Material","mc"],["BCA","Material","mc"],["Cărămidă","Material","buc"],["Fier beton","Material","kg"],["Plasă sudată","Material","mp"],["Gips-carton","Material","mp"],["Vată minerală","Material","mp"],["Polistiren","Material","mp"],["Adeziv","Material","sac"],["Glet","Material","sac"],["Amorsă","Material","litru"],["Vopsea lavabilă","Material","litru"],["Gresie","Material","mp"],["Faianță","Material","mp"],["Parchet","Material","mp"],["Țiglă","Material","buc"],["Membrană hidroizolație","Material","mp"],["Zidărie","Manoperă","mp"],["Tencuială","Manoperă","mp"],["Gletuire","Manoperă","mp"],["Montaj gresie","Manoperă","mp"],["Montaj parchet","Manoperă","mp"],[" zugrăveală / vopsit","Manoperă","mp"],["Montaj rigips","Manoperă","mp"],["Turnare șapă","Manoperă","mp"],["Montaj acoperiș","Manoperă","mp"],["Demolare","Manoperă","mp"]
+].map((x,i)=>({id:"seed"+i,name:x[0],type:x[1],unit:x[2],price:0}));
 
-let app = null;
-let auth = null;
-let store = null;
-let user = null;
-let initPromise = null;
-let authActionInProgress = false;
-
-function message(t) {
-  $('authMessage').textContent = t;
+let data={quotes:[],clients:[],settings:{},catalog:[]};
+let currentItems=[],editingId=null,auth=null,db=null,user=null,lastArea=0,lastVolume=0;
+function readLocal(){
+ try{const d=JSON.parse(localStorage.getItem(STORAGE)||"{}");data.quotes=Array.isArray(d.quotes)?d.quotes:[];data.clients=Array.isArray(d.clients)?d.clients:[];data.settings=d.settings||{};}catch(e){}
+ try{data.catalog=JSON.parse(localStorage.getItem(CATKEY)||"[]");}catch(e){data.catalog=[];}
+ if(!Array.isArray(data.catalog)||!data.catalog.length)data.catalog=seed.map(x=>({...x}));
+ data.quotes=data.quotes.map(q=>({...q,items:Array.isArray(q.items)?q.items:[]}));
 }
-
-function setUI() {
-  $('authStatus').textContent = user
-    ? 'Conectat: ' + user.email
-    : 'Neconectat';
-
-  $('authForms').classList.toggle('hidden', !!user);
-  $('authActions').classList.toggle('hidden', !!user);
-  $('signedActions').classList.toggle('hidden', !user);
+function saveLocal(){
+ localStorage.setItem(STORAGE,JSON.stringify({quotes:data.quotes,clients:data.clients,settings:data.settings}));
+ localStorage.setItem(CATKEY,JSON.stringify(data.catalog));
+ $("topStatus").textContent="Salvat local · "+new Date().toLocaleTimeString("ro-RO");
 }
-
-async function init() {
-  if (auth && store) return true;
-  if (initPromise) return initPromise;
-
-  initPromise = (async () => {
-    try {
-      app = getApps().some(a => a.name === 'devizpro')
-        ? getApp('devizpro')
-        : initializeApp(FIREBASE_CONFIG, 'devizpro');
-
-      auth = getAuth(app);
-      store = getFirestore(app);
-
-      await setPersistence(auth, browserLocalPersistence);
-
-      onAuthStateChanged(auth, async u => {
-        if (u && !authActionInProgress && !u.emailVerified) {
-          user = null;
-          setUI();
-          message('Confirmă adresa de e-mail înainte de a intra în cont.');
-          await signOut(auth);
-          return;
-        }
-
-        user = u;
-        setUI();
-
-        if (u && u.emailVerified) {
-          await pull();
-          message('Conectat. Datele contului sunt sincronizate în cloud.');
-        } else if (!u) {
-          message('Nu ești conectat. Datele locale rămân salvate.');
-        }
-      });
-
-      return true;
-    } catch (e) {
-      message('Eroare Firebase: ' + e.message);
-      initPromise = null;
-      return false;
-    }
-  })();
-
-  return initPromise;
+function message(id,msg,kind=""){
+ const el=$(id);el.textContent=msg;el.className="status "+kind;
 }
-
-async function pull() {
-  if (!user || !store) return;
-
-  try {
-    const ref = doc(store, 'users', user.uid, 'private', 'workspace');
-    const snap = await getDoc(ref);
-
-    if (snap.exists()) {
-      window.devizApplyCloudData(snap.data());
-    } else {
-      const emptyData = {
-        quotes: [],
-        clients: [],
-        settings: {},
-        updatedAt: new Date().toISOString()
-      };
-
-      await setDoc(ref, emptyData);
-      window.devizApplyCloudData(emptyData);
-    }
-  } catch (e) {
-    message('Nu am putut încărca datele: ' + e.message);
-  }
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function switchTab(tab){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ $(tab).classList.remove("hidden");
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+ if(tab==="history")renderHistory();if(tab==="clients")renderClients();if(tab==="catalog")renderCatalog();
 }
-
-async function push() {
-  if (!user || !store || !user.emailVerified) return;
-
-  try {
-    const raw = JSON.parse(
-      localStorage.getItem('devizpro-v2-data') || '{}'
-    );
-
-    await setDoc(
-      doc(store, 'users', user.uid, 'private', 'workspace'),
-      {
-        quotes: raw.quotes || [],
-        clients: raw.clients || [],
-        settings: raw.settings || {},
-        updatedAt: new Date().toISOString()
-      }
-    );
-
-    message('Sincronizare finalizată.');
-  } catch (e) {
-    message('Eroare la sincronizare: ' + e.message);
-  }
+$("nav").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(b)switchTab(b.dataset.tab);});
+function quoteTotals(){
+ const sub=currentItems.reduce((s,x)=>s+(Number(x.qty)||0)*(Number(x.price)||0),0);
+ const vat=Number($("qVat").value)||0, tax=sub*vat/100;
+ $("quoteTotals").textContent=`Subtotal: ${money(sub)} lei · TVA: ${money(tax)} lei · Total: ${money(sub+tax)} lei`;
+ return {sub,tax,total:sub+tax};
 }
+function renderItems(){
+ $("quoteItems").innerHTML="";
+ currentItems.forEach((x,i)=>{
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td>${safe(x.desc)} <small>(${safe(x.unit||"buc")})</small></td><td><input aria-label="Cantitate" type="number" min="0" step=".01" value="${Number(x.qty)||0}" data-i="${i}" data-k="qty"></td><td><input aria-label="Preț" type="number" min="0" step=".01" value="${Number(x.price)||0}" data-i="${i}" data-k="price"></td><td>${money((Number(x.qty)||0)*(Number(x.price)||0))} lei</td><td><button class="btn danger" data-del="${i}">×</button></td>`;
+  $("quoteItems").appendChild(tr);
+ });
+ quoteTotals();
+}
+$("quoteItems").addEventListener("change",e=>{
+ const i=Number(e.target.dataset.i),k=e.target.dataset.k;
+ if(k&&currentItems[i]){currentItems[i][k]=Math.max(0,Number(e.target.value)||0);renderItems();}
+});
+$("quoteItems").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(b){currentItems.splice(Number(b.dataset.del),1);renderItems();}});
+$("addItem").onclick=()=>{
+ const desc=$("itemDesc").value.trim(),qty=Number($("itemQty").value),price=Number($("itemPrice").value);
+ if(!desc)return alert("Scrie denumirea articolului.");
+ if(!(qty>0)||price<0)return alert("Verifică cantitatea și prețul.");
+ currentItems.push({desc,qty,price,unit:$("itemUnit").value});
+ $("itemDesc").value="";$("itemQty").value=1;$("itemPrice").value=0;renderItems();
+};
+$("qVat").onchange=quoteTotals;
+function formQuote(){
+ return {id:editingId||uid(),date:$("qDate").value||new Date().toISOString().slice(0,10),client:$("qClient").value.trim(),phone:$("qPhone").value.trim(),address:$("qAddress").value.trim(),job:$("qJob").value.trim(),terms:$("qTerms").value,vat:Number($("qVat").value)||0,notes:$("qNotes").value,items:currentItems.map(x=>({...x})),updated:Date.now()};
+}
+function clearQuote(){
+ editingId=null;currentItems=[];$("editorTitle").textContent="Deviz nou";
+ ["qClient","qPhone","qAddress","qJob","qNotes"].forEach(id=>$(id).value="");
+ $("qDate").value=new Date().toISOString().slice(0,10);$("qTerms").value="Valabilitate ofertă: 15 zile.";$("qVat").value="0";renderItems();
+}
+$("newQuote").onclick=clearQuote;
+$("saveQuote").onclick=()=>{
+ const q=formQuote();if(!q.client)return alert("Completează numele clientului.");
+ if(!q.items.length)return alert("Adaugă cel puțin un articol.");
+ const i=data.quotes.findIndex(x=>x.id===q.id);
+ if(i>=0)data.quotes[i]=q;else data.quotes.unshift(q);
+ saveLocal();renderHistory();alert("Deviz salvat!");if(user?.emailVerified)syncCloud().catch(e=>console.warn(e));
+};
+function openQuote(id){
+ const q=data.quotes.find(x=>x.id===id);if(!q)return;
+ editingId=q.id;$("editorTitle").textContent="Editezi deviz";
+ $("qClient").value=q.client||"";$("qPhone").value=q.phone||"";$("qAddress").value=q.address||"";
+ $("qDate").value=q.date||"";$("qJob").value=q.job||"";$("qTerms").value=q.terms||"";
+ $("qVat").value=String(q.vat??0);$("qNotes").value=q.notes||"";
+ currentItems=(q.items||[]).map(x=>({...x}));renderItems();switchTab("editor");
+}
+$("printQuote").onclick=()=>{if(!currentItems.length)return alert("Adaugă articole înainte de tipărire.");window.print();};
+$("shareQuote").onclick=()=>{
+ const q=formQuote(),t=quoteTotals();
+ const lines=q.items.map(x=>`${x.desc}: ${x.qty} ${x.unit||"buc"} x ${money(x.price)} lei = ${money(x.qty*x.price)} lei`).join("\n");
+ const text=`DEVIZ DEVIZPRO ROMÂNIA\nPrestator: ${data.settings.name||""}\nClient: ${q.client}\nData: ${q.date}\nLucrare: ${q.job}\n\n${lines}\n\nSubtotal: ${money(t.sub)} lei\nTVA: ${money(t.tax)} lei\nTOTAL: ${money(t.total)} lei\n${q.terms||""}`;
+ window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+};
+$("chooseCatalog").onclick=()=>{
+ if(!data.catalog.length)return alert("Catalogul este gol.");
+ const list=data.catalog.map((x,i)=>`${i+1}. ${x.name} — ${money(x.price)} lei/${x.unit}`).join("\n");
+ const answer=prompt("Scrie numărul articolului:\n"+list);
+ if(answer===null)return;const x=data.catalog[Number(answer)-1];
+ if(!x)return alert("Număr invalid.");
+ currentItems.push({desc:x.name,qty:1,price:Number(x.price)||0,unit:x.unit||"buc"});renderItems();
+};
+function renderCatalog(){
+ const term=$("catalogSearch").value.toLowerCase(),filter=$("catalogFilter").value;
+ const arr=data.catalog.filter(x=>(filter==="all"||x.type===filter)&&x.name.toLowerCase().includes(term));
+ $("catalogList").innerHTML="";
+ if(!arr.length){$("catalogList").textContent="Nu există articole pentru această căutare.";return;}
+ arr.forEach(x=>{
+  const row=document.createElement("div");row.className="row";
+  const info=document.createElement("div");info.innerHTML=`<strong>${safe(x.name)}</strong><br><small>${safe(x.type)} · ${safe(x.unit)} · ${money(x.price)} lei</small>`;
+  const controls=document.createElement("div");controls.className="actions";
+  const edit=document.createElement("button");edit.className="btn secondary";edit.textContent="Editează";
+  edit.onclick=()=>{const n=prompt("Denumire",x.name);if(n===null)return;const p=prompt("Preț unitar (lei)",x.price);if(p===null)return;const price=Number(p);if(!Number.isFinite(price)||price<0)return alert("Preț invalid.");x.name=n.trim()||x.name;x.price=price;saveLocal();renderCatalog();};
+  const add=document.createElement("button");add.className="btn";add.textContent="În deviz";add.onclick=()=>{currentItems.push({desc:x.name,qty:1,price:Number(x.price)||0,unit:x.unit});renderItems();switchTab("editor");};
+  const del=document.createElement("button");del.className="btn danger";del.textContent="Șterge";del.onclick=()=>{if(confirm("Ștergi articolul?")){data.catalog=data.catalog.filter(a=>a.id!==x.id);saveLocal();renderCatalog();}};
+  controls.append(edit,add,del);row.append(info,controls);$("catalogList").append(row);
+ });
+}
+$("catalogSearch").oninput=renderCatalog;$("catalogFilter").onchange=renderCatalog;
+$("saveCatalogItem").onclick=()=>{
+ const name=$("catName").value.trim(),price=Number($("catPrice").value);
+ if(!name)return alert("Scrie denumirea articolului.");if(!Number.isFinite(price)||price<0)return alert("Preț invalid.");
+ data.catalog.push({id:uid(),name,type:$("catType").value,unit:$("catUnit").value.trim()||"buc",price});
+ $("catName").value="";$("catPrice").value=0;saveLocal();renderCatalog();
+};
+function renderHistory(){
+ const term=$("historySearch").value.toLowerCase();$("historyList").innerHTML="";
+ const arr=data.quotes.filter(q=>[q.client,q.id,q.job].join(" ").toLowerCase().includes(term));
+ if(!arr.length){$("historyList").textContent="Nu ai devize salvate.";return;}
+ arr.forEach(q=>{
+  const total=(q.items||[]).reduce((s,x)=>s+(Number(x.qty)||0)*(Number(x.price)||0),0)*(1+(Number(q.vat)||0)/100);
+  const row=document.createElement("div");row.className="row";
+  const info=document.createElement("div");info.innerHTML=`<strong>${safe(q.client||"Client")}</strong><br><small>${safe(q.date)} · ${safe(q.job||"Fără descriere")} · ${money(total)} lei</small>`;
+  const actions=document.createElement("div");actions.className="actions";
+  const make=(label,cls,fn)=>{const b=document.createElement("button");b.className="btn "+cls;b.textContent=label;b.onclick=fn;return b;};
+  actions.append(make("Deschide","",()=>openQuote(q.id)),make("Copiază","secondary",()=>{const copy={...q,id:uid(),date:new Date().toISOString().slice(0,10),items:q.items.map(x=>({...x}))};data.quotes.unshift(copy);saveLocal();renderHistory();}),make("Șterge","danger",()=>{if(confirm("Ștergi acest deviz?")){data.quotes=data.quotes.filter(x=>x.id!==q.id);saveLocal();renderHistory();}}));
+  row.append(info,actions);$("historyList").append(row);
+ });
+}
+$("historySearch").oninput=renderHistory;
+function renderClients(){
+ $("clientList").innerHTML="";$("clientOptions").innerHTML="";
+ data.clients.forEach(c=>{
+  const opt=document.createElement("option");opt.value=c.name;$("clientOptions").append(opt);
+  const row=document.createElement("div");row.className="row";
+  const info=document.createElement("div");info.innerHTML=`<strong>${safe(c.name)}</strong><br><small>${safe(c.phone)} · ${safe(c.address)} · ${safe(c.email)}</small>`;
+  const b=document.createElement("button");b.className="btn danger";b.textContent="Șterge";b.onclick=()=>{if(confirm("Ștergi clientul?")){data.clients=data.clients.filter(x=>x.id!==c.id);saveLocal();renderClients();}};
+  row.append(info,b);$("clientList").append(row);
+ });
+}
+$("saveClient").onclick=()=>{
+ const name=$("clientName").value.trim();if(!name)return alert("Scrie numele clientului.");
+ data.clients.push({id:uid(),name,phone:$("clientPhone").value,address:$("clientAddress").value,email:$("clientEmail").value});
+ ["clientName","clientPhone","clientAddress","clientEmail"].forEach(id=>$(id).value="");saveLocal();renderClients();
+};
+$("qClient").addEventListener("change",()=>{
+ const c=data.clients.find(x=>x.name.toLowerCase()===$("qClient").value.trim().toLowerCase());
+ if(c){$("qPhone").value=c.phone||"";$("qAddress").value=c.address||"";}
+});
+function loadSettings(){
+ const s=data.settings||{};const map={pName:"name",pCui:"cui",pReg:"reg",pPhone:"phone",pEmail:"email",pAddress:"address",pIban:"iban"};
+ Object.entries(map).forEach(([id,k])=>$(id).value=s[k]||"");
+ renderProvider();
+}
+function renderProvider(){
+ const s=data.settings||{};
+ $("providerPreview").textContent=[s.name,s.cui&&"CUI: "+s.cui,s.phone,s.email,s.address,s.iban&&"IBAN: "+s.iban].filter(Boolean).join(" · ")||"Completează datele prestatorului.";
+}
+$("saveSettings").onclick=()=>{
+ data.settings={name:$("pName").value.trim(),cui:$("pCui").value.trim(),reg:$("pReg").value.trim(),phone:$("pPhone").value.trim(),email:$("pEmail").value.trim(),address:$("pAddress").value.trim(),iban:$("pIban").value.trim()};
+ saveLocal();renderProvider();alert("Date prestator salvate.");
+};
+function calculate(){
+ const l=Math.max(0,Number($("calcL").value)||0),w=Math.max(0,Number($("calcW").value)||0),h=Math.max(0,Number($("calcH").value)||0);
+ lastArea=l*w;lastVolume=l*w*h;
+ $("calcResult").textContent=`Suprafață: ${money(lastArea)} mp · Volum: ${money(lastVolume)} mc`;
+}
+$("calculate").onclick=calculate;
+$("useArea").onclick=()=>{calculate();$("itemDesc").value="Suprafață calculată";$("itemQty").value=lastArea;$("itemUnit").value="mp";switchTab("editor");};
+$("useVolume").onclick=()=>{calculate();$("itemDesc").value="Volum calculat";$("itemQty").value=lastVolume;$("itemUnit").value="mc";switchTab("editor");};
+function costCalc(){$("costResult").textContent="Total: "+money((Number($("costQty").value)||0)*(Number($("costPrice").value)||0))+" lei";}
+$("costQty").oninput=costCalc;$("costPrice").oninput=costCalc;
 
-window.devizCloudSave = data => {
-  if (user && store && user.emailVerified) {
-    setDoc(
-      doc(store, 'users', user.uid, 'private', 'workspace'),
-      {
-        ...data,
-        updatedAt: new Date().toISOString()
-      }
-    ).catch(e => message('Eroare sincronizare: ' + e.message));
-  }
+$("exportBackup").onclick=()=>{
+ const backup={app:"DevizPro România",version:4.1,createdAt:new Date().toISOString(),quotes:data.quotes,clients:data.clients,settings:data.settings,catalog:data.catalog};
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="devizpro-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);
+};
+$("importBackup").onclick=async()=>{
+ const file=$("importFile").files[0];if(!file)return alert("Alege un fișier JSON.");
+ try{
+  const b=JSON.parse(await file.text());
+  if(!Array.isArray(b.quotes)||!Array.isArray(b.clients)||!Array.isArray(b.catalog)||typeof b.settings!=="object")throw new Error("Structură invalidă");
+  if(!confirm("Importul va înlocui datele locale curente. Ai făcut backup?"))return;
+  data={quotes:b.quotes,clients:b.clients,settings:b.settings||{},catalog:b.catalog};
+  saveLocal();renderAll();alert("Backup importat.");
+ }catch(e){alert("Fișier invalid sau incompatibil: "+e.message);}
 };
 
-$('saveFirebase').onclick = () => {
-  message('Firebase este configurat automat.');
+function mergeById(a,b){
+ const map=new Map();[...(a||[]),...(b||[])].forEach(x=>{if(x&&x.id)map.set(x.id,x);});
+ return [...map.values()];
+}
+function workspace(){return {quotes:data.quotes,clients:data.clients,settings:data.settings,catalog:data.catalog,updatedAt:Date.now()};}
+async function syncCloud(){
+ if(!user)throw new Error("Nu ești autentificat.");
+ await user.reload();if(!user.emailVerified)throw new Error("Confirmă adresa de email înainte de sincronizare.");
+ const ref=doc(db,"users",user.uid,"private","workspace"),snap=await getDoc(ref);
+ if(!snap.exists()){
+  await setDoc(ref,workspace());message("accountStatus","Datele locale au fost încărcate în contul online.","good");return;
+ }
+ const cloud=snap.data()||{};
+ data.quotes=mergeById(cloud.quotes,data.quotes);
+ data.clients=mergeById(cloud.clients,data.clients);
+ data.catalog=mergeById(cloud.catalog,data.catalog);
+ data.settings=Object.keys(cloud.settings||{}).length?cloud.settings:data.settings;
+ saveLocal();await setDoc(ref,workspace());
+ message("accountStatus","Sincronizare reușită. Datele locale și cele online au fost reunite.","good");
+ renderAll();
+}
+$("syncNow").onclick=async()=>{try{await syncCloud();}catch(e){message("accountStatus",friendlyError(e),"bad");}};
+function friendlyError(e){
+ const code=e?.code||"";
+ if(code.includes("email-already-in-use"))return "Acest email are deja cont. Încearcă autentificarea.";
+ if(code.includes("weak-password"))return "Parola trebuie să aibă cel puțin 6 caractere.";
+ if(code.includes("invalid-email"))return "Adresa de email nu este validă.";
+ if(code.includes("invalid-credential")||code.includes("wrong-password"))return "Email sau parolă incorectă.";
+ if(code.includes("permission-denied"))return "Firebase a refuzat accesul. Verifică regulile Firestore.";
+ if(code.includes("network-request-failed"))return "Nu există conexiune la internet.";
+ return e?.message||"A apărut o eroare.";
+}
+$("register").onclick=async()=>{
+ const email=$("authEmail").value.trim(),pass=$("authPassword").value;
+ if(!email||pass.length<6)return alert("Introdu emailul și o parolă de minimum 6 caractere.");
+ try{const cred=await createUserWithEmailAndPassword(auth,email,pass);await sendEmailVerification(cred.user);message("accountStatus","Cont creat! Verifică emailul și apasă linkul de confirmare.","good");}catch(e){message("accountStatus",friendlyError(e),"bad");}
 };
-
-$('testFirebase').onclick = init;
-
-$('registerBtn').onclick = async () => {
-  authActionInProgress = true;
-
-  try {
-    await init();
-
-    const credential = await createUserWithEmailAndPassword(
-      auth,
-      $('authEmail').value.trim(),
-      $('authPassword').value
-    );
-
-    await sendEmailVerification(credential.user);
-    await signOut(auth);
-
-    user = null;
-    setUI();
-
-    message('Cont creat! Am trimis un link de confirmare. Verifică Inbox și Spam.');
-  } catch (e) {
-    message('Nu am putut crea contul: ' + e.message);
-  } finally {
-    authActionInProgress = false;
-  }
+$("login").onclick=async()=>{
+ try{await signInWithEmailAndPassword(auth,$("authEmail").value.trim(),$("authPassword").value);if(user&&!user.emailVerified)message("accountStatus","Cont conectat, dar emailul nu este confirmat. Verifică mesajul primit.","bad");}
+ catch(e){message("accountStatus",friendlyError(e),"bad");}
 };
-
-$('loginBtn').onclick = async () => {
-  authActionInProgress = true;
-
-  try {
-    await init();
-
-    const credential = await signInWithEmailAndPassword(
-      auth,
-      $('authEmail').value.trim(),
-      $('authPassword').value
-    );
-
-    await reload(credential.user);
-
-    if (!credential.user.emailVerified) {
-      await sendEmailVerification(credential.user);
-      await signOut(auth);
-      user = null;
-      setUI();
-
-      message('E-mailul nu este confirmat. Ți-am trimis un nou link de confirmare.');
-      return;
-    }
-
-    user = credential.user;
-    setUI();
-    await pull();
-    message('Bine ai revenit în DevizPro România!');
-  } catch (e) {
-    message('Autentificare eșuată: ' + e.message);
-  } finally {
-    authActionInProgress = false;
-  }
+$("resetPassword").onclick=async()=>{
+ const email=$("authEmail").value.trim();if(!email)return alert("Introdu adresa de email.");
+ try{await sendPasswordResetEmail(auth,email);message("accountStatus","Am trimis un link pentru resetarea parolei.","good");}catch(e){message("accountStatus",friendlyError(e),"bad");}
 };
-
-$('resetBtn').onclick = async () => {
-  try {
-    await init();
-
-    await sendPasswordResetEmail(
-      auth,
-      $('authEmail').value.trim()
-    );
-
-    message('Am trimis linkul de resetare. Verifică și Spam.');
-  } catch (e) {
-    message('Nu am putut trimite resetarea: ' + e.message);
-  }
-};
-
-$('logoutBtn').onclick = () => signOut(auth);
-$('syncBtn').onclick = push;
-
-setUI();
-init();
+$("logout").onclick=async()=>{try{await signOut(auth);message("accountStatus","Te-ai deconectat. Datele locale rămân pe telefon.","good");}catch(e){message("accountStatus",friendlyError(e),"bad");}};
+function renderAll(){renderItems();renderCatalog();renderHistory();renderClients();loadSettings();}
+function initFirebase(){
+ try{
+  const app=initializeApp(FIREBASE_CONFIG);auth=getAuth(app);db=getFirestore(app);
+  onAuthStateChanged(auth,async u=>{
+   user=u;
+   if(!u){message("accountStatus","Nu ești conectat. Datele se salvează local.");return;}
+   message("accountStatus",`Conectat: ${u.email}${u.emailVerified?" · Email confirmat":" · Email neconfirmat"}`,u.emailVerified?"good":"bad");
+   if(u.emailVerified){try{await syncCloud();}catch(e){message("accountStatus",friendlyError(e),"bad");}}
+  });
+ }catch(e){message("accountStatus","Firebase nu a putut porni: "+friendlyError(e),"bad");}
+}
+function renderAllAndSave(){saveLocal();renderAll();}
+readLocal();$("qDate").value=new Date().toISOString().slice(0,10);renderAll();initFirebase();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker:",e)));}
 </script>
+</body>
+</html>
 
-</body></html>
