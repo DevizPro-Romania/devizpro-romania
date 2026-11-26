@@ -117,6 +117,149 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#667085;font-
 const $=id=>document.getElementById(id), KEY='devizpro-v2-data';
 const money=n=>(Number(n)||0).toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2})+' lei';
 let db={quotes:[],clients:[],settings:{},currentId:null};
+const CATALOG_KEY='devizpro-catalog';
+
+let catalog=[
+ {name:'Ciment',category:'material',unit:'sac',price:0},
+ {name:'Nisip',category:'material',unit:'mc',price:0},
+ {name:'Pietriș',category:'material',unit:'mc',price:0},
+ {name:'BCA',category:'material',unit:'buc',price:0},
+ {name:'Cărămidă',category:'material',unit:'buc',price:0},
+ {name:'Fier beton',category:'material',unit:'kg',price:0},
+ {name:'Gresie',category:'material',unit:'mp',price:0},
+ {name:'Faianță',category:'material',unit:'mp',price:0},
+ {name:'Lavabilă',category:'material',unit:'litru',price:0},
+ {name:'Zidărie',category:'manopera',unit:'mp',price:0},
+ {name:'Tencuială',category:'manopera',unit:'mp',price:0},
+ {name:'Glet',category:'manopera',unit:'mp',price:0},
+ {name:'Zugrăveli',category:'manopera',unit:'mp',price:0},
+ {name:'Montaj gresie',category:'manopera',unit:'mp',price:0}
+];
+
+function loadCatalog(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(CATALOG_KEY)||'null');
+  if(Array.isArray(saved)) catalog=saved;
+ }catch(e){}
+}
+
+function saveCatalog(){
+ localStorage.setItem(CATALOG_KEY,JSON.stringify(catalog));
+}
+
+function safeCatalogText(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;',
+  '"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+function renderCatalog(){
+ const list=$('catalogList');
+ if(!list)return;
+
+ const search=($('catalogSearch')?.value||'').toLowerCase();
+ const category=$('catalogCategory')?.value||'all';
+
+ const filtered=catalog
+ .map((item,index)=>({...item,index}))
+ .filter(item=>
+  (category==='all'||item.category===category)&&
+  item.name.toLowerCase().includes(search)
+ );
+
+ if(!filtered.length){
+  list.innerHTML='<p>Nu există produse în această căutare.</p>';
+  return;
+ }
+
+ list.innerHTML=filtered.map(item=>`
+  <div class="panel" style="margin:10px 0;padding:12px">
+   <strong>${safeCatalogText(item.name)}</strong>
+   <div class="muted">
+    ${item.category==='material'?'Material':'Manoperă'}
+    · ${safeCatalogText(item.unit)}
+   </div>
+   <p>Preț: <strong>${money(item.price)}</strong></p>
+   <button type="button" onclick="addCatalogToQuote(${item.index})">
+    ＋ Adaugă în deviz
+   </button>
+   <button type="button" onclick="editCatalogPrice(${item.index})">
+    ✎ Modifică preț
+   </button>
+  </div>
+ `).join('');
+}
+
+function addCatalogItem(){
+ const name=prompt('Denumirea materialului sau lucrării:');
+ if(!name||!name.trim())return;
+
+ const category=prompt('Scrie material sau manopera:','material');
+ if(!category)return;
+
+ const type=category.trim().toLowerCase();
+ if(!['material','manopera'].includes(type)){
+  alert('Alege material sau manopera.');
+  return;
+ }
+
+ const unit=prompt('Unitatea de măsură (buc, mp, mc, kg etc.):','buc');
+ if(!unit||!unit.trim())return;
+
+ const price=Number(prompt('Prețul unitar în lei:','0'));
+ if(!Number.isFinite(price)||price<0){
+  alert('Preț invalid.');
+  return;
+ }
+
+ catalog.push({
+  name:name.trim(),
+  category:type,
+  unit:unit.trim(),
+  price
+ });
+
+ saveCatalog();
+ renderCatalog();
+}
+
+function editCatalogPrice(index){
+ const item=catalog[index];
+ if(!item)return;
+
+ const value=prompt('Noul preț pentru '+item.name+':',item.price);
+ if(value===null)return;
+
+ const price=Number(value);
+ if(!Number.isFinite(price)||price<0){
+  alert('Preț invalid.');
+  return;
+ }
+
+ item.price=price;
+ saveCatalog();
+ renderCatalog();
+}
+
+function addCatalogToQuote(index){
+ const item=catalog[index];
+ if(!item)return;
+
+ if(typeof addRow!=='function'){
+  alert('Editorul de deviz nu este disponibil.');
+  return;
+ }
+
+ addRow(item.name,1,item.price);
+ alert(item.name+' a fost adăugat în deviz.');
+}
+
+loadCatalog();
+$('catalogSearch')?.addEventListener('input',renderCatalog);
+$('catalogCategory')?.addEventListener('change',renderCatalog);
+renderCatalog();
+
 function exportBackup(){let blob=new Blob([JSON.stringify({quotes:db.quotes,clients:db.clients,settings:db.settings},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='devizpro-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
 $('exportData')?.addEventListener('click',exportBackup);
 $('importData')?.addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let d=JSON.parse(await f.text());if(!Array.isArray(d.quotes)||!Array.isArray(d.clients)||typeof d.settings!=='object')throw new Error('format');if(!confirm('Restaurarea va înlocui datele DevizPro salvate pe acest dispozitiv. Continui?'))return;db.quotes=d.quotes;db.clients=d.clients;db.settings=d.settings||{};db.currentId=null;persist();fillSettings();renderQuotes();renderClients();refreshClientPick();alert('Backup restaurat cu succes.')}catch(err){alert('Fișierul nu pare a fi un backup DevizPro valid.')}e.target.value=''});
