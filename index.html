@@ -153,11 +153,13 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  reload
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import {
   getFirestore,
@@ -180,6 +182,7 @@ let auth = null;
 let store = null;
 let user = null;
 let initPromise = null;
+let authActionInProgress = false;
 
 function message(t) {
   $('authMessage').textContent = t;
@@ -211,13 +214,21 @@ async function init() {
       await setPersistence(auth, browserLocalPersistence);
 
       onAuthStateChanged(auth, async u => {
+        if (u && !authActionInProgress && !u.emailVerified) {
+          user = null;
+          setUI();
+          message('Confirmă adresa de e-mail înainte de a intra în cont.');
+          await signOut(auth);
+          return;
+        }
+
         user = u;
         setUI();
 
-        if (u) {
+        if (u && u.emailVerified) {
           await pull();
           message('Conectat. Datele contului sunt sincronizate în cloud.');
-        } else {
+        } else if (!u) {
           message('Nu ești conectat. Datele locale rămân salvate.');
         }
       });
@@ -259,7 +270,7 @@ async function pull() {
 }
 
 async function push() {
-  if (!user || !store) return;
+  if (!user || !store || !user.emailVerified) return;
 
   try {
     const raw = JSON.parse(
@@ -283,7 +294,7 @@ async function push() {
 }
 
 window.devizCloudSave = data => {
-  if (user && store) {
+  if (user && store && user.emailVerified) {
     setDoc(
       doc(store, 'users', user.uid, 'private', 'workspace'),
       {
@@ -295,38 +306,69 @@ window.devizCloudSave = data => {
 };
 
 $('saveFirebase').onclick = () => {
-  message('Firebase este configurat automat. Nu mai trebuie să introduci cheile.');
+  message('Firebase este configurat automat.');
 };
 
 $('testFirebase').onclick = init;
 
 $('registerBtn').onclick = async () => {
+  authActionInProgress = true;
+
   try {
     await init();
 
-    await createUserWithEmailAndPassword(
+    const credential = await createUserWithEmailAndPassword(
       auth,
       $('authEmail').value.trim(),
       $('authPassword').value
     );
 
-    message('Cont creat cu succes!');
+    await sendEmailVerification(credential.user);
+    await signOut(auth);
+
+    user = null;
+    setUI();
+
+    message('Cont creat! Am trimis un link de confirmare. Verifică Inbox și Spam.');
   } catch (e) {
     message('Nu am putut crea contul: ' + e.message);
+  } finally {
+    authActionInProgress = false;
   }
 };
 
 $('loginBtn').onclick = async () => {
+  authActionInProgress = true;
+
   try {
     await init();
 
-    await signInWithEmailAndPassword(
+    const credential = await signInWithEmailAndPassword(
       auth,
       $('authEmail').value.trim(),
       $('authPassword').value
     );
+
+    await reload(credential.user);
+
+    if (!credential.user.emailVerified) {
+      await sendEmailVerification(credential.user);
+      await signOut(auth);
+      user = null;
+      setUI();
+
+      message('E-mailul nu este confirmat. Ți-am trimis un nou link de confirmare.');
+      return;
+    }
+
+    user = credential.user;
+    setUI();
+    await pull();
+    message('Bine ai revenit în DevizPro România!');
   } catch (e) {
     message('Autentificare eșuată: ' + e.message);
+  } finally {
+    authActionInProgress = false;
   }
 };
 
@@ -351,4 +393,5 @@ $('syncBtn').onclick = push;
 setUI();
 init();
 </script>
+
 </body></html>
